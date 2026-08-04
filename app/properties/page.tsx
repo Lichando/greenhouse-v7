@@ -86,19 +86,20 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
 
   return (
     <MainLayout>
-      <div className="px-4 py-12 sm:px-6 lg:px-8 fade-in">
+      <div className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
+          {/* Header */}
           <div className="fade-in-up mb-12">
-            <h1 className="text-4xl font-bold text-neutral-900 dark:text-white">
-              Properties
+            <h1 className="font-bebas text-5xl font-bold text-neutral-900 dark:text-white tracking-tight">
+              PROPIEDADES
             </h1>
-            <p className="fade-in-up-1 mt-2 text-neutral-600 dark:text-neutral-400">
-              Browse our {properties.length} available properties
+            <p className="fade-in-up-1 mt-4 text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl">
+              Descubre las mejores oportunidades inmobiliarias. Tenemos {properties.length} propiedades disponibles seleccionadas especialmente para ti.
             </p>
           </div>
 
           {/* Filters */}
-          <div className="fade-in-up-2">
+          <div className="fade-in-up-2 mb-8">
             <PropertyFilters
               type={params.type}
               operation={params.operation}

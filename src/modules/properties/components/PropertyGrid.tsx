@@ -24,13 +24,13 @@ export function PropertyGrid({ properties, loading }: PropertyGridProps) {
 
   if (properties.length === 0) {
     return (
-      <div className="flex h-96 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex h-96 items-center justify-center rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
         <div className="text-center">
-          <p className="text-lg font-semibold text-neutral-900 dark:text-white">
-            No properties found
+          <p className="font-bebas text-2xl font-bold text-neutral-900 dark:text-white">
+            No hay propiedades disponibles
           </p>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            Try adjusting your search filters
+          <p className="mt-2 text-neutral-600 dark:text-neutral-400 font-montserrat">
+            Intenta ajustando los filtros de búsqueda
           </p>
         </div>
       </div>
