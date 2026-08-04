@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { PropertyDTO } from '../types';
-import { formatCurrency } from '../../../helpers/format';
+import { formatPrice } from '../../../helpers/format';
 
 interface PropertyDetailProps {
   property: PropertyDTO;
@@ -107,7 +107,7 @@ export function PropertyDetail({ property }: PropertyDetailProps) {
             <div>
               <p className="mb-2 text-sm text-neutral-600 dark:text-neutral-400">Price</p>
               <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-                {formatCurrency(property.price)}
+                {formatPrice(property.price)}
               </p>
             </div>
 

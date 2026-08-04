@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { PropertyCardProps } from '../types';
-import { formatCurrency } from '../../../helpers/format';
+import { formatPrice } from '../../../helpers/format';
 
 export function PropertyCard({
   id,
@@ -46,7 +46,7 @@ export function PropertyCard({
 
           {/* Price */}
           <p className="mb-3 text-xl font-bold text-blue-600 dark:text-blue-400">
-            {formatCurrency(price)}
+            {formatPrice(price)}
           </p>
 
           {/* Features */}
