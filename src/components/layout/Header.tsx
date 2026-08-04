@@ -18,18 +18,18 @@ export function Header({ user }: HeaderProps) {
   const [mounted, setMounted] = useState(false);
 
   const navItems = [
-    { href: '/properties', label: 'Properties' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/properties', label: 'Propiedades' },
+    { href: '/about', label: 'Sobre Nosotros' },
+    { href: '/contact', label: 'Contacto' },
   ];
 
   useEffect(() => {
     setMounted(true);
     if (pathname === '/') {
-      setCurrentLabel('Home');
+      setCurrentLabel('Inicio');
     } else {
       const current = navItems.find(item => item.href === pathname);
-      setCurrentLabel(current?.label || 'Home');
+      setCurrentLabel(current?.label || 'Inicio');
     }
   }, [pathname]);
 
@@ -77,7 +77,7 @@ export function Header({ user }: HeaderProps) {
                     onClick={handleLogout}
                     className="px-3 py-1.5 text-xs font-montserrat font-medium text-primary bg-white/90 hover:bg-white rounded-lg transition-all"
                   >
-                    Logout
+                    Cerrar Sesión
                   </button>
                 </>
               ) : (
@@ -86,13 +86,13 @@ export function Header({ user }: HeaderProps) {
                     href="/auth/login"
                     className="hidden sm:block text-sm font-montserrat font-medium text-white/70 hover:text-white transition-colors"
                   >
-                    Sign In
+                    Iniciar Sesión
                   </Link>
                   <Link
                     href="/auth/register"
                     className="px-4 py-1.5 text-xs sm:text-sm font-montserrat font-semibold text-primary bg-white/95 hover:bg-white rounded-lg transition-all shadow-lg"
                   >
-                    Get Started
+                    Registrarse
                   </Link>
                 </>
               )}
