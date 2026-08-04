@@ -38,6 +38,14 @@ export function Footer() {
         { label: 'Soporte Dedicado', href: '#' },
       ],
     },
+    {
+      id: 'community',
+      title: 'Comunidad',
+      items: [
+        { label: 'Blog', href: '#' },
+        { label: 'Suscribir Newsletter', href: '#' },
+      ],
+    },
   ];
 
   return (
@@ -121,18 +129,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Bottom Links */}
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <Link href="/about" className="text-xs sm:text-sm font-montserrat text-white/80 hover:text-white transition-colors">
-              Sobre Nosotros
-            </Link>
-            <Link href="/contact" className="text-xs sm:text-sm font-montserrat text-white/80 hover:text-white transition-colors">
-              Contacto
-            </Link>
-            <Link href="#" className="text-xs sm:text-sm font-montserrat text-white/80 hover:text-white transition-colors">
-              Blog
-            </Link>
-          </div>
         </div>
 
         {/* Divider */}
