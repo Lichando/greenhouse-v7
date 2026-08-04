@@ -120,82 +120,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Partners Section - Inmobiliarias */}
-      <section className="fade-in-up px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
-        <div className="mx-auto max-w-7xl">
-          <div className="fade-in-up text-center mb-12">
-            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white">
-              Inmobiliarias Adheridas
-            </h2>
-            <p className="fade-in-up-1 mt-3 text-lg text-neutral-600 dark:text-neutral-400">
-              Confían en nosotros las mejores inmobiliarias de Argentina
-            </p>
-          </div>
-
-          <div className="fade-in-up-2 grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white dark:bg-neutral-900 rounded-lg p-6 flex items-center justify-center border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all hover:scale-105">
-                <div className="text-center">
-                  <div className="h-12 bg-gradient-to-r from-primary to-accent rounded-lg mb-3" />
-                  <p className="text-sm font-montserrat text-neutral-700 dark:text-neutral-300">Inmobiliaria {i}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="fade-in-up-3 mt-12 text-center">
-            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat mb-4">
-              ¿Eres una inmobiliaria? Únete a nuestra red
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block px-6 py-2.5 bg-primary hover:bg-primary/90 text-white font-montserrat font-semibold rounded-lg transition-all"
-            >
-              Solicitar Asociación
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Developers Section */}
-      <section className="fade-in-up-1 px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="fade-in-up text-center mb-12">
-            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white">
-              Desarrolladoras Adheridas
-            </h2>
-            <p className="fade-in-up-1 mt-3 text-lg text-neutral-600 dark:text-neutral-400">
-              Proyectos premium de los principales desarrolladores
-            </p>
-          </div>
-
-          <div className="fade-in-up-2 grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-lg p-8 flex items-center justify-center border border-primary/20 dark:border-primary/30 hover:shadow-lg transition-all hover:scale-105">
-                <div className="text-center">
-                  <div className="h-16 bg-gradient-to-r from-primary to-accent rounded-lg mb-3" />
-                  <p className="text-sm font-montserrat text-neutral-700 dark:text-neutral-300">Desarrolladora {i}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="fade-in-up-3 mt-12 text-center">
-            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat mb-4">
-              ¿Eres desarrolladora? Expande tu alcance con nosotros
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block px-6 py-2.5 bg-accent hover:bg-accent/90 text-white font-montserrat font-semibold rounded-lg transition-all"
-            >
-              Solicitar Asociación
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Plans Section */}
-      <section className="fade-in-up-2 px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
+      <section className="fade-in px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
         <div className="mx-auto max-w-7xl">
           <div className="fade-in-up text-center mb-12">
             <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white">
@@ -283,6 +209,80 @@ export default function HomePage() {
                 Solicitar Información
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section - Inmobiliarias */}
+      <section className="fade-in-up px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
+        <div className="mx-auto max-w-7xl">
+          <div className="fade-in-up text-center mb-12">
+            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white">
+              Inmobiliarias Adheridas
+            </h2>
+            <p className="fade-in-up-1 mt-3 text-lg text-neutral-600 dark:text-neutral-400">
+              Confían en nosotros las mejores inmobiliarias de Argentina
+            </p>
+          </div>
+
+          <div className="fade-in-up-2 grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-white dark:bg-neutral-900 rounded-lg p-6 flex items-center justify-center border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all hover:scale-105">
+                <div className="text-center">
+                  <div className="h-12 bg-gradient-to-r from-primary to-accent rounded-lg mb-3" />
+                  <p className="text-sm font-montserrat text-neutral-700 dark:text-neutral-300">Inmobiliaria {i}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="fade-in-up-3 mt-12 text-center">
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat mb-4">
+              ¿Eres una inmobiliaria? Únete a nuestra red
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block px-6 py-2.5 bg-primary hover:bg-primary/90 text-white font-montserrat font-semibold rounded-lg transition-all"
+            >
+              Solicitar Asociación
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Developers Section */}
+      <section className="fade-in-up-1 px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="fade-in-up text-center mb-12">
+            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white">
+              Desarrolladoras Adheridas
+            </h2>
+            <p className="fade-in-up-1 mt-3 text-lg text-neutral-600 dark:text-neutral-400">
+              Proyectos premium de los principales desarrolladores
+            </p>
+          </div>
+
+          <div className="fade-in-up-2 grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-lg p-8 flex items-center justify-center border border-primary/20 dark:border-primary/30 hover:shadow-lg transition-all hover:scale-105">
+                <div className="text-center">
+                  <div className="h-16 bg-gradient-to-r from-primary to-accent rounded-lg mb-3" />
+                  <p className="text-sm font-montserrat text-neutral-700 dark:text-neutral-300">Desarrolladora {i}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="fade-in-up-3 mt-12 text-center">
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat mb-4">
+              ¿Eres desarrolladora? Expande tu alcance con nosotros
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block px-6 py-2.5 bg-accent hover:bg-accent/90 text-white font-montserrat font-semibold rounded-lg transition-all"
+            >
+              Solicitar Asociación
+            </Link>
           </div>
         </div>
       </section>
