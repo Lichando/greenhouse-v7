@@ -1,5 +1,6 @@
 import { MainLayout } from '@/src/components/layout/MainLayout';
 import { PropertyGrid } from '@/src/modules/properties/components/PropertyGrid';
+import { PropertyFilters } from '@/src/modules/properties/components/PropertyFilters';
 
 interface PropertiesPageProps {
   searchParams: Promise<{
@@ -97,75 +98,11 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
           </div>
 
           {/* Filters */}
-          <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                Type
-              </label>
-              <select
-                defaultValue={params.type || ''}
-                className="mt-1 w-full rounded-lg border border-neutral-300 px-4 py-2 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
-                onChange={(e) => {
-                  const url = new URL(window.location.href);
-                  if (e.target.value) url.searchParams.set('type', e.target.value);
-                  else url.searchParams.delete('type');
-                  window.location.href = url.toString();
-                }}
-              >
-                <option value="">All Types</option>
-                <option value="APARTMENT">Apartment</option>
-                <option value="HOUSE">House</option>
-                <option value="LAND">Land</option>
-                <option value="COMMERCIAL">Commercial</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                Operation
-              </label>
-              <select
-                defaultValue={params.operation || ''}
-                className="mt-1 w-full rounded-lg border border-neutral-300 px-4 py-2 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
-                onChange={(e) => {
-                  const url = new URL(window.location.href);
-                  if (e.target.value) url.searchParams.set('operation', e.target.value);
-                  else url.searchParams.delete('operation');
-                  window.location.href = url.toString();
-                }}
-              >
-                <option value="">All Operations</option>
-                <option value="SALE">For Sale</option>
-                <option value="RENT">For Rent</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                City
-              </label>
-              <input
-                type="text"
-                defaultValue={params.city || ''}
-                placeholder="Enter city"
-                className="mt-1 w-full rounded-lg border border-neutral-300 px-4 py-2 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
-                onChange={(e) => {
-                  const url = new URL(window.location.href);
-                  if (e.target.value) url.searchParams.set('city', e.target.value);
-                  else url.searchParams.delete('city');
-                }}
-              />
-            </div>
-
-            <div className="flex items-end">
-              <button
-                onClick={() => (window.location.href = '/properties')}
-                className="w-full rounded-lg border border-neutral-300 px-4 py-2 font-semibold text-neutral-900 transition-colors hover:bg-neutral-50 dark:border-neutral-600 dark:text-white dark:hover:bg-neutral-800"
-              >
-                Clear Filters
-              </button>
-            </div>
-          </div>
+          <PropertyFilters
+            type={params.type}
+            operation={params.operation}
+            city={params.city}
+          />
 
           {/* Property Grid */}
           <PropertyGrid properties={properties} loading={false} />
