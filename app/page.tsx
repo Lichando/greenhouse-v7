@@ -5,15 +5,15 @@ export default function HomePage() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-blue-50 to-white px-4 py-20 dark:from-neutral-900 dark:to-neutral-950 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-b from-blue-50 to-white px-4 py-20 dark:from-neutral-900 dark:to-neutral-950 sm:px-6 lg:px-8 fade-in">
         <div className="mx-auto max-w-7xl text-center">
-          <h1 className="text-5xl font-bold text-neutral-900 dark:text-white md:text-6xl">
+          <h1 className="fade-in-up text-5xl font-bold text-neutral-900 dark:text-white md:text-6xl">
             Find Your Dream Property
           </h1>
-          <p className="mt-6 text-xl text-neutral-600 dark:text-neutral-400">
+          <p className="fade-in-up-1 mt-6 text-xl text-neutral-600 dark:text-neutral-400">
             Discover the perfect home or investment opportunity in Argentina
           </p>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+          <div className="fade-in-up-2 mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/properties?operation=SALE"
               className="rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
@@ -31,7 +31,7 @@ export default function HomePage() {
       </section>
 
       {/* Search Section */}
-      <section className="border-y border-neutral-200 bg-white px-4 py-12 dark:border-neutral-800 dark:bg-neutral-950 sm:px-6 lg:px-8">
+      <section className="fade-in-up-3 border-y border-neutral-200 bg-white px-4 py-12 dark:border-neutral-800 dark:bg-neutral-950 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">Find Properties</h2>
           <form className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-4">
@@ -80,7 +80,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Section */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="fade-in-up-4 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center justify-between">
             <div>
@@ -98,15 +98,15 @@ export default function HomePage() {
           </div>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Featured properties will be loaded here */}
-            <div className="h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
-            <div className="h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
-            <div className="h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+            <div className="fade-in-up h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+            <div className="fade-in-up-1 h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+            <div className="fade-in-up-2 h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 px-4 py-16 dark:bg-blue-500 sm:px-6 lg:px-8">
+      <section className="fade-in-up-3 bg-blue-600 px-4 py-16 dark:bg-blue-500 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold text-white">Need Help?</h2>
           <p className="mt-4 text-blue-100">
