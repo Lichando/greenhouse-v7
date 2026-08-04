@@ -25,8 +25,12 @@ export function Header({ user }: HeaderProps) {
 
   useEffect(() => {
     setMounted(true);
-    const current = navItems.find(item => item.href === pathname);
-    setCurrentLabel(current?.label || 'Navigate');
+    if (pathname === '/') {
+      setCurrentLabel('Home');
+    } else {
+      const current = navItems.find(item => item.href === pathname);
+      setCurrentLabel(current?.label || 'Home');
+    }
   }, [pathname]);
 
   const handleLogout = async () => {
