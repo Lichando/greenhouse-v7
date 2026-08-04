@@ -83,11 +83,11 @@ export function Footer() {
             <div key={section.id} className="flex flex-col">
               <button
                 onClick={() => setOpenSection(openSection === section.id ? null : section.id)}
-                className="flex items-center justify-between py-2 text-sm font-montserrat text-white/80 hover:text-white transition-colors"
+                className="flex items-center justify-between py-2 text-sm font-montserrat text-white/80 hover:text-white transition-colors mb-2"
               >
-                {section.title}
+                <span>{section.title}</span>
                 <svg 
-                  className={`w-4 h-4 transition-transform duration-300 ${openSection === section.id ? 'rotate-180' : 'rotate-0'}`}
+                  className={`w-4 h-4 transition-transform duration-300 flex-shrink-0 ${openSection === section.id ? 'rotate-180' : 'rotate-0'}`}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -98,12 +98,12 @@ export function Footer() {
               
               {/* Expanded Items */}
               {openSection === section.id && (
-                <div className="flex flex-col gap-2 mt-2">
+                <div className="flex flex-col gap-2">
                   {section.items.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-xs font-montserrat text-white/60 hover:text-white transition-colors pl-2 border-l border-white/20 hover:border-white/40"
+                      className="text-xs font-montserrat text-white/60 hover:text-white transition-colors pl-3 border-l border-white/20 hover:border-white/40 py-1"
                     >
                       {item.label}
                     </Link>
