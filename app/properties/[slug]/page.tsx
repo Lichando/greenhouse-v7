@@ -76,8 +76,8 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
   return (
     <MainLayout>
-      <div className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <div className="px-4 py-12 sm:px-6 lg:px-8 fade-in">
+        <div className="fade-in-up mx-auto max-w-6xl">
           <PropertyDetail property={mockProperty} />
         </div>
       </div>

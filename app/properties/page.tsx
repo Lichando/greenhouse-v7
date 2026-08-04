@@ -86,26 +86,30 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
 
   return (
     <MainLayout>
-      <div className="px-4 py-12 sm:px-6 lg:px-8">
+      <div className="px-4 py-12 sm:px-6 lg:px-8 fade-in">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12">
+          <div className="fade-in-up mb-12">
             <h1 className="text-4xl font-bold text-neutral-900 dark:text-white">
               Properties
             </h1>
-            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+            <p className="fade-in-up-1 mt-2 text-neutral-600 dark:text-neutral-400">
               Browse our {properties.length} available properties
             </p>
           </div>
 
           {/* Filters */}
-          <PropertyFilters
-            type={params.type}
-            operation={params.operation}
-            city={params.city}
-          />
+          <div className="fade-in-up-2">
+            <PropertyFilters
+              type={params.type}
+              operation={params.operation}
+              city={params.city}
+            />
+          </div>
 
           {/* Property Grid */}
-          <PropertyGrid properties={properties} loading={false} />
+          <div className="fade-in-up-3">
+            <PropertyGrid properties={properties} loading={false} />
+          </div>
         </div>
       </div>
     </MainLayout>

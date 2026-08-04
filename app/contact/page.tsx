@@ -33,18 +33,18 @@ export default function ContactPage() {
 
   return (
     <MainLayout>
-      <div className="px-4 py-12 sm:px-6 lg:px-8">
+      <div className="px-4 py-12 sm:px-6 lg:px-8 fade-in">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-12 text-center">
+          <div className="fade-in-up mb-12 text-center">
             <h1 className="text-4xl font-bold text-neutral-900 dark:text-white">Get in Touch</h1>
-            <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+            <p className="fade-in-up-1 mt-4 text-lg text-neutral-600 dark:text-neutral-400">
               Have a question or need assistance? We&apos;d love to hear from you.
             </p>
           </div>
 
           <div className="grid gap-12 md:grid-cols-3">
             {/* Contact Info */}
-            <div className="space-y-6 md:col-span-1">
+            <div className="fade-in-up-2 space-y-6 md:col-span-1">
               <div>
                 <h3 className="font-semibold text-neutral-900 dark:text-white">Address</h3>
                 <p className="mt-2 text-neutral-600 dark:text-neutral-400">
@@ -79,7 +79,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-6 md:col-span-2">
+            <form onSubmit={handleSubmit} className="fade-in-up-3 space-y-6 md:col-span-2">
               {submitted && (
                 <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-green-700 dark:border-green-900 dark:bg-green-900 dark:text-green-100">
                   Thank you for your message! We&apos;ll get back to you shortly.
