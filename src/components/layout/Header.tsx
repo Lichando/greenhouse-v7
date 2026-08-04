@@ -97,7 +97,6 @@ export function Header({ user }: HeaderProps) {
             </div>
           </div>
         </div>
-        </div>
 
         {/* Auth Section */}
         <div className="flex items-center gap-3">
