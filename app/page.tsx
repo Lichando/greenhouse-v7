@@ -94,34 +94,8 @@ export default function HomePage() {
 
 
 
-      {/* Featured Section */}
-      <section className="fade-in-up-4 px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">Featured Properties</h2>
-              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-                Check out our latest listings
-              </p>
-            </div>
-            <Link
-              href="/properties"
-              className="text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              View All →
-            </Link>
-          </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Featured properties will be loaded here */}
-            <div className="fade-in-up h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
-            <div className="fade-in-up-1 h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
-            <div className="fade-in-up-2 h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Plans Section */}
-      <section className="fade-in px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
+      <section className="fade-in-up px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
         <div className="mx-auto max-w-7xl">
           <div className="fade-in-up text-center mb-12">
             <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white">
@@ -209,6 +183,32 @@ export default function HomePage() {
                 Solicitar Información
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Section */}
+      <section className="fade-in-up-1 px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">Featured Properties</h2>
+              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+                Check out our latest listings
+              </p>
+            </div>
+            <Link
+              href="/properties"
+              className="text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              View All →
+            </Link>
+          </div>
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* Featured properties will be loaded here */}
+            <div className="fade-in-up h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+            <div className="fade-in-up-1 h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+            <div className="fade-in-up-2 h-64 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
           </div>
         </div>
       </section>
