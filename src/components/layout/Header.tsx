@@ -52,11 +52,7 @@ export function Header({ user }: HeaderProps) {
                 alt="GREEN HOUSE icon"
                 className="h-8 w-auto object-contain"
               />
-              <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logos-09-e7MsKukNc1h0Xfm2Vh4NvTVdcgYZ0q.png"
-                alt="GREEN HOUSE"
-                className="h-6 w-auto object-contain"
-              />
+              <span className="font-bebas text-lg font-bold text-white tracking-wider">GREEN HOUSE</span>
             </Link>
 
             {/* Center Navigation Trigger - Desktop */}
