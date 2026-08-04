@@ -18,26 +18,50 @@ export function Header({ user }: HeaderProps) {
   };
 
   return (
-    <header className="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-600">
-            <span className="font-bold text-white">RE</span>
+    <header className="relative border-b border-transparent bg-gradient-to-r from-slate-900/95 to-slate-800/95 backdrop-blur-md dark:from-slate-950 dark:to-slate-900 shadow-lg shadow-cyan-500/5">
+      {/* Animated gradient line */}
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-30" />
+      
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
+        {/* Logo - Tech Forward */}
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="relative flex h-10 w-10 items-center justify-center">
+            {/* Animated border */}
+            <div className="absolute inset-0 rounded bg-gradient-to-br from-cyan-500 to-blue-600 opacity-75 blur-sm group-hover:opacity-100 transition-opacity" />
+            <div className="relative flex h-10 w-10 items-center justify-center rounded bg-slate-950 group-hover:bg-slate-900">
+              <svg className="h-5 w-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
+              </svg>
+            </div>
           </div>
-          <span className="font-bold text-neutral-900 dark:text-white">Bienes Raíces</span>
+          <div>
+            <span className="block font-bold text-white tracking-tight text-lg">PROPCHAIN</span>
+            <span className="block text-xs text-cyan-400 font-medium">Real Estate Network</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden gap-6 md:flex">
-          <Link href="/properties" className="text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
+        <div className="hidden gap-8 md:flex">
+          <Link
+            href="/properties"
+            className="relative text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400 group"
+          >
             Properties
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 transition-all group-hover:w-full" />
           </Link>
-          <Link href="/about" className="text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
+          <Link
+            href="/about"
+            className="relative text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400 group"
+          >
             About
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 transition-all group-hover:w-full" />
           </Link>
-          <Link href="/contact" className="text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
+          <Link
+            href="/contact"
+            className="relative text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400 group"
+          >
             Contact
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 transition-all group-hover:w-full" />
           </Link>
         </div>
 
@@ -45,29 +69,30 @@ export function Header({ user }: HeaderProps) {
         <div className="flex items-center gap-4">
           {user ? (
             <>
-              <span className="hidden text-sm text-neutral-600 dark:text-neutral-400 sm:inline">
+              <span className="hidden text-sm text-gray-400 sm:inline">
                 {user.name}
               </span>
               <button
                 onClick={handleLogout}
-                className="rounded-lg bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-900 transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700"
+                className="px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors relative group"
               >
-                Logout
+                <div className="absolute inset-0 rounded bg-cyan-500/10 group-hover:bg-cyan-500/20 transition-colors" />
+                <span className="relative">Logout</span>
               </button>
             </>
           ) : (
             <>
               <Link
                 href="/auth/login"
-                className="text-sm font-semibold text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                className="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors"
               >
-                Log In
+                Sign In
               </Link>
               <Link
                 href="/auth/register"
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 rounded-lg transition-all shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
               >
-                Sign Up
+                Get Started
               </Link>
             </>
           )}
@@ -76,36 +101,37 @@ export function Header({ user }: HeaderProps) {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden"
+          className="md:hidden relative"
           aria-label="Toggle menu"
         >
-          <svg
-            className="h-6 w-6 text-neutral-600 dark:text-neutral-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <div className="space-y-1.5">
+            <span className={`block h-0.5 w-6 bg-cyan-400 transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block h-0.5 w-6 bg-cyan-400 transition-all ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 w-6 bg-cyan-400 transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </div>
         </button>
       </nav>
 
       {/* Mobile Navigation */}
       {menuOpen && (
-        <div className="border-t border-neutral-200 bg-neutral-50 px-4 py-4 dark:border-neutral-800 dark:bg-neutral-900 md:hidden">
-          <div className="flex flex-col gap-4">
-            <Link href="/properties" className="text-neutral-600 dark:text-neutral-400">
+        <div className="border-t border-cyan-500/10 bg-slate-800/50 backdrop-blur px-4 py-4 md:hidden">
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/properties"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 rounded transition-colors"
+            >
               Properties
             </Link>
-            <Link href="/about" className="text-neutral-600 dark:text-neutral-400">
+            <Link
+              href="/about"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 rounded transition-colors"
+            >
               About
             </Link>
-            <Link href="/contact" className="text-neutral-600 dark:text-neutral-400">
+            <Link
+              href="/contact"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 rounded transition-colors"
+            >
               Contact
             </Link>
           </div>
