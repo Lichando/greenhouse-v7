@@ -1,7 +1,22 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { Bebas_Neue, Montserrat } from 'next/font/google'
 import './globals.css'
 import { seoConfig } from '@/src/config/seo'
+
+const bebasNeue = Bebas_Neue({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-bebas',
+  display: 'swap',
+})
+
+const montserrat = Montserrat({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -58,8 +73,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="en" className={`${bebasNeue.variable} ${montserrat.variable}`}>
+      <body className="antialiased font-montserrat">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
