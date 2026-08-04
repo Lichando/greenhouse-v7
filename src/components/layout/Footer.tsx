@@ -49,7 +49,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-primary to-secondary dark:from-primary/90 dark:to-secondary/90 border-t border-primary/30">
+    <footer className="bg-gradient-to-r from-primary to-secondary border-t border-primary/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         {/* Top Section: Logo and Social */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8 pb-8 border-b border-white/20">
@@ -83,7 +83,7 @@ export function Footer() {
             <div key={section.id} className="flex flex-col">
               <button
                 onClick={() => setOpenSection(openSection === section.id ? null : section.id)}
-                className="flex items-center justify-between py-2 text-sm font-montserrat text-white/80 hover:text-white transition-colors mb-2"
+                className="flex items-center justify-between py-2 text-sm font-montserrat font-semibold text-white hover:text-white/80 transition-colors mb-2"
               >
                 <span>{section.title}</span>
                 <svg 
@@ -103,7 +103,7 @@ export function Footer() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-xs font-montserrat text-white/60 hover:text-white transition-colors pl-3 border-l border-white/20 hover:border-white/40 py-1"
+                      className="text-xs font-montserrat text-white/80 hover:text-white transition-colors pl-3 border-l border-white/30 hover:border-white/60 py-1"
                     >
                       {item.label}
                     </Link>
