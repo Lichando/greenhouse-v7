@@ -27,7 +27,7 @@ export type AggregateProperty = {
 }
 
 export type PropertyAvgAggregateOutputType = {
-  price: runtime.Decimal | null
+  price: number | null
   bedrooms: number | null
   bathrooms: number | null
   area: number | null
@@ -36,7 +36,7 @@ export type PropertyAvgAggregateOutputType = {
 }
 
 export type PropertySumAggregateOutputType = {
-  price: runtime.Decimal | null
+  price: number | null
   bedrooms: number | null
   bathrooms: number | null
   area: number | null
@@ -52,7 +52,7 @@ export type PropertyMinAggregateOutputType = {
   type: $Enums.PropertyType | null
   operation: $Enums.PropertyOperation | null
   status: $Enums.PropertyStatus | null
-  price: runtime.Decimal | null
+  price: number | null
   currency: string | null
   bedrooms: number | null
   bathrooms: number | null
@@ -75,7 +75,7 @@ export type PropertyMaxAggregateOutputType = {
   type: $Enums.PropertyType | null
   operation: $Enums.PropertyOperation | null
   status: $Enums.PropertyStatus | null
-  price: runtime.Decimal | null
+  price: number | null
   currency: string | null
   bedrooms: number | null
   bathrooms: number | null
@@ -297,7 +297,7 @@ export type PropertyGroupByOutputType = {
   type: $Enums.PropertyType
   operation: $Enums.PropertyOperation
   status: $Enums.PropertyStatus
-  price: runtime.Decimal
+  price: number
   currency: string
   bedrooms: number | null
   bathrooms: number | null
@@ -343,7 +343,7 @@ export type PropertyWhereInput = {
   type?: Prisma.EnumPropertyTypeFilter<"Property"> | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFilter<"Property"> | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
-  price?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFilter<"Property"> | number
   currency?: Prisma.StringFilter<"Property"> | string
   bedrooms?: Prisma.IntNullableFilter<"Property"> | number | null
   bathrooms?: Prisma.IntNullableFilter<"Property"> | number | null
@@ -394,7 +394,7 @@ export type PropertyWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumPropertyTypeFilter<"Property"> | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFilter<"Property"> | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
-  price?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFilter<"Property"> | number
   currency?: Prisma.StringFilter<"Property"> | string
   bedrooms?: Prisma.IntNullableFilter<"Property"> | number | null
   bathrooms?: Prisma.IntNullableFilter<"Property"> | number | null
@@ -449,7 +449,7 @@ export type PropertyScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumPropertyTypeWithAggregatesFilter<"Property"> | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationWithAggregatesFilter<"Property"> | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusWithAggregatesFilter<"Property"> | $Enums.PropertyStatus
-  price?: Prisma.DecimalWithAggregatesFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatWithAggregatesFilter<"Property"> | number
   currency?: Prisma.StringWithAggregatesFilter<"Property"> | string
   bedrooms?: Prisma.IntNullableWithAggregatesFilter<"Property"> | number | null
   bathrooms?: Prisma.IntNullableWithAggregatesFilter<"Property"> | number | null
@@ -472,7 +472,7 @@ export type PropertyCreateInput = {
   type: $Enums.PropertyType
   operation: $Enums.PropertyOperation
   status?: $Enums.PropertyStatus
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price: number
   currency?: string
   bedrooms?: number | null
   bathrooms?: number | null
@@ -496,7 +496,7 @@ export type PropertyUncheckedCreateInput = {
   type: $Enums.PropertyType
   operation: $Enums.PropertyOperation
   status?: $Enums.PropertyStatus
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price: number
   currency?: string
   bedrooms?: number | null
   bathrooms?: number | null
@@ -520,7 +520,7 @@ export type PropertyUpdateInput = {
   type?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFieldUpdateOperationsInput | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   bedrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bathrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -544,7 +544,7 @@ export type PropertyUncheckedUpdateInput = {
   type?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFieldUpdateOperationsInput | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   bedrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bathrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -568,7 +568,7 @@ export type PropertyCreateManyInput = {
   type: $Enums.PropertyType
   operation: $Enums.PropertyOperation
   status?: $Enums.PropertyStatus
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price: number
   currency?: string
   bedrooms?: number | null
   bathrooms?: number | null
@@ -591,7 +591,7 @@ export type PropertyUpdateManyMutationInput = {
   type?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFieldUpdateOperationsInput | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   bedrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bathrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -614,7 +614,7 @@ export type PropertyUncheckedUpdateManyInput = {
   type?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFieldUpdateOperationsInput | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   bedrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bathrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -733,12 +733,12 @@ export type EnumPropertyStatusFieldUpdateOperationsInput = {
   set?: $Enums.PropertyStatus
 }
 
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -779,7 +779,7 @@ export type PropertyCreateWithoutImagesInput = {
   type: $Enums.PropertyType
   operation: $Enums.PropertyOperation
   status?: $Enums.PropertyStatus
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price: number
   currency?: string
   bedrooms?: number | null
   bathrooms?: number | null
@@ -802,7 +802,7 @@ export type PropertyUncheckedCreateWithoutImagesInput = {
   type: $Enums.PropertyType
   operation: $Enums.PropertyOperation
   status?: $Enums.PropertyStatus
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price: number
   currency?: string
   bedrooms?: number | null
   bathrooms?: number | null
@@ -841,7 +841,7 @@ export type PropertyUpdateWithoutImagesInput = {
   type?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFieldUpdateOperationsInput | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   bedrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bathrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -864,7 +864,7 @@ export type PropertyUncheckedUpdateWithoutImagesInput = {
   type?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
   operation?: Prisma.EnumPropertyOperationFieldUpdateOperationsInput | $Enums.PropertyOperation
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   bedrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bathrooms?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1025,7 +1025,7 @@ export type $PropertyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     type: $Enums.PropertyType
     operation: $Enums.PropertyOperation
     status: $Enums.PropertyStatus
-    price: runtime.Decimal
+    price: number
     currency: string
     bedrooms: number | null
     bathrooms: number | null
@@ -1469,7 +1469,7 @@ export interface PropertyFieldRefs {
   readonly type: Prisma.FieldRef<"Property", 'PropertyType'>
   readonly operation: Prisma.FieldRef<"Property", 'PropertyOperation'>
   readonly status: Prisma.FieldRef<"Property", 'PropertyStatus'>
-  readonly price: Prisma.FieldRef<"Property", 'Decimal'>
+  readonly price: Prisma.FieldRef<"Property", 'Float'>
   readonly currency: Prisma.FieldRef<"Property", 'String'>
   readonly bedrooms: Prisma.FieldRef<"Property", 'Int'>
   readonly bathrooms: Prisma.FieldRef<"Property", 'Int'>
@@ -1716,7 +1716,6 @@ export type PropertyCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many Properties.
    */
   data: Prisma.PropertyCreateManyInput | Prisma.PropertyCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1735,7 +1734,6 @@ export type PropertyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Properties.
    */
   data: Prisma.PropertyCreateManyInput | Prisma.PropertyCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**

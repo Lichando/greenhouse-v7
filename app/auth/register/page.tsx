@@ -1,0 +1,29 @@
+import { MainLayout } from '@/src/components/layout/MainLayout';
+import { RegisterForm } from '@/src/modules/auth/components/RegisterForm';
+
+export const metadata = {
+  title: 'Sign Up',
+};
+
+export default function RegisterPage() {
+  return (
+    <MainLayout>
+      <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-neutral-900 dark:text-white">
+              Create Account
+            </h1>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Join us to start browsing properties
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+            <RegisterForm />
+          </div>
+        </div>
+      </div>
+    </MainLayout>
+  );
+}

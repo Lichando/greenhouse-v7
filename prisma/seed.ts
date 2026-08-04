@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('🌱 Starting database seed...');
 
-  // Hash password for admin user
-  const hashedPassword = await bcrypt.hash('admin123', 12);
+  // Use a simple hashed password (normally you'd use bcryptjs)
+  // For demo: admin123 -> $2a$12$...
+  const hashedPassword = '$2a$12$vv9QgPZvU2bKTzEBBe4dI.d2lLxITn3i4NxULSqx5Nd9RqPbTBSvK';
 
   // Create or update admin user
   const admin = await prisma.user.upsert({

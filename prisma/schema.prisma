@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 // Enums
@@ -76,11 +76,11 @@ model Property {
   id            String   @id @default(cuid())
   slug          String   @unique
   title         String
-  description   String   @db.Text
+  description   String
   type          PropertyType
   operation     PropertyOperation
   status        PropertyStatus @default(ACTIVE)
-  price         Decimal  @db.Decimal(12, 2)
+  price         Float
   currency      String   @default("ARS")
   bedrooms      Int?
   bathrooms     Int?
