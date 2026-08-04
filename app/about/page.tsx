@@ -185,23 +185,218 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* History & Timeline */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-12 fade-in-up">
+            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white mb-3 tracking-tight">
+              NUESTRA HISTORIA
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">Desde 2020, transformando el real estate argentino</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              {[
+                { year: '2020', title: 'Fundación de GREEN HOUSE', description: 'Nace la visión de crear una plataforma transparente y moderna para el real estate argentino.' },
+                { year: '2021', title: 'Lanzamiento de la plataforma', description: 'Empezamos con 500 propiedades y 50 profesionales asociados en CABA.' },
+                { year: '2022', title: 'Expansión nacional', description: 'Llegamos a 15 ciudades principales con más de 100 inmobiliarias asociadas.' },
+                { year: '2023', title: 'Milestone: 50K usuarios', description: 'Alcanzamos 50,000 usuarios activos y 5,000 propiedades en la plataforma.' },
+                { year: '2024', title: 'Presente y futuro', description: 'Consolidados como referentes con nuevas herramientas de IA y expansión a más regiones.' },
+              ].map((item, i) => (
+                <div key={i} className={`fade-in-up-${i} flex gap-6 items-start`}>
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-white font-bebas font-bold">
+                      {item.year.slice(-2)}
+                    </div>
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="font-bebas text-xl font-bold text-neutral-900 dark:text-white mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 font-montserrat">
+                      {item.year} • {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
       <section className="px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-12 fade-in-up">
+            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white mb-3 tracking-tight">
+              LOGROS Y RECONOCIMIENTOS
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">Certificaciones que avalan nuestra calidad</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { icon: '🏆', title: 'Mejor Plataforma Inmobiliaria', subtitle: '2023 - TechArgentina Awards' },
+              { icon: '✅', title: 'ISO 27001 Certificado', subtitle: 'Seguridad y privacidad de datos' },
+              { icon: '⭐', title: 'Rating 4.8/5', subtitle: 'Miles de usuarios satisfechos' },
+              { icon: '🔒', title: 'Verificación AFIP', subtitle: 'Operaciones transparentes' },
+              { icon: '🌟', title: 'Innovación Tecnológica', subtitle: 'Plataforma con IA integrada' },
+              { icon: '💚', title: 'Impacto Social', subtitle: '1000+ familias ayudadas a encontrar hogar' },
+            ].map((achievement, i) => (
+              <div key={i} className={`fade-in-up-${i} p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-center hover:shadow-lg transition-all`}>
+                <div className="text-4xl mb-3">{achievement.icon}</div>
+                <h3 className="font-bebas text-lg font-bold text-neutral-900 dark:text-white mb-1">
+                  {achievement.title}
+                </h3>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 font-montserrat">
+                  {achievement.subtitle}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12 fade-in-up">
             <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white mb-3 tracking-tight">
               NUESTRO EQUIPO
             </h2>
-            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">Profesionales apasionados por el real estate</p>
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">Profesionales dedicados a tu éxito inmobiliario</p>
           </div>
 
-          <div className="max-w-3xl mx-auto fade-in-up-1">
-            <p className="text-neutral-700 dark:text-neutral-300 font-montserrat text-center leading-relaxed mb-4">
-              Somos un equipo multidisciplinario de expertos en real estate, tecnología y servicio al cliente. Con más de 50 años de experiencia combinada en el sector inmobiliario argentino, estamos comprometidos a ofrecer la mejor experiencia.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { name: 'María González', role: 'Directora Ejecutiva', bio: '15+ años en real estate. Experta en estrategia digital.' },
+              { name: 'Juan Rodríguez', role: 'Director Técnico', bio: 'Ingeniero especializado en fintech. Desarrollo de plataformas.' },
+              { name: 'Laura Martínez', role: 'Directora de Operaciones', bio: 'Experiencia en gestión inmobiliaria y compliance.' },
+              { name: 'Carlos López', role: 'Gestor de Asociaciones', bio: 'Relaciones con inmobiliarias y desarrolladores.' },
+              { name: 'Sofía Torres', role: 'Customer Success Lead', bio: 'Especializada en experiencia del usuario.' },
+              { name: 'Diego Fernández', role: 'Data & Analytics', bio: 'Experto en inteligencia de mercado inmobiliario.' },
+            ].map((member, i) => (
+              <div key={i} className={`fade-in-up-${i} rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all`}>
+                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-5xl">
+                  👤
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="font-bebas text-lg font-bold text-neutral-900 dark:text-white mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="text-sm text-primary font-montserrat font-semibold mb-3">
+                    {member.role}
+                  </p>
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400 font-montserrat">
+                    {member.bio}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 p-8 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl border border-primary/20 fade-in-up-6">
+            <p className="text-center text-neutral-700 dark:text-neutral-300 font-montserrat">
+              Con <span className="font-bold text-primary">50+ años de experiencia combinada</span> en el sector inmobiliario argentino, cada miembro del equipo trabaja con pasión para asegurar que GREEN HOUSE sea la plataforma más confiable y útil.
             </p>
-            <p className="text-neutral-700 dark:text-neutral-300 font-montserrat text-center leading-relaxed">
-              Cada miembro del equipo trabaja con pasión para asegurar que GREEN HOUSE sea la plataforma más confiable y útil para todos nuestros usuarios.
-            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Section */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950/50">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-12 fade-in-up">
+            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white mb-3 tracking-tight">
+              IMPACTO SOCIAL
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">Más que una plataforma, somos parte de tu historia</p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="space-y-6">
+              <div className="fade-in-up p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
+                <h3 className="font-bebas text-xl font-bold text-neutral-900 dark:text-white mb-2">
+                  Acceso Igualitario
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">
+                  Facilitamos el acceso a información inmobiliaria de calidad sin importar el nivel socioeconómico. 1000+ familias de barrios en expansión encontraron su hogar a través de GREEN HOUSE.
+                </p>
+              </div>
+
+              <div className="fade-in-up-1 p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
+                <h3 className="font-bebas text-xl font-bold text-neutral-900 dark:text-white mb-2">
+                  Emprendedores Inmobiliarios
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">
+                  Apoyamos a inmobiliarios independientes y pequeños emprendimientos a alcanzar mayor visibilidad. Más de 150 profesionales independientes generan ingresos a través de nuestra plataforma.
+                </p>
+              </div>
+
+              <div className="fade-in-up-2 p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
+                <h3 className="font-bebas text-xl font-bold text-neutral-900 dark:text-white mb-2">
+                  Sostenibilidad
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">
+                  Promovemos propiedades eco-sustentables y desarrollos responsables. Destacamos proyectos con certificaciones ambientales en nuestra plataforma.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Roadmap Section */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-12 fade-in-up">
+            <h2 className="font-bebas text-4xl font-bold text-neutral-900 dark:text-white mb-3 tracking-tight">
+              NUESTRO FUTURO
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-400 font-montserrat">Lo que viene para GREEN HOUSE</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="fade-in-up p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20">
+              <h3 className="font-bebas text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                2024-2025
+              </h3>
+              <ul className="space-y-3 font-montserrat text-sm text-neutral-700 dark:text-neutral-300">
+                <li className="flex gap-2">
+                  <span className="text-primary">▸</span> Integración con IA para análisis predictivo de precios
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-primary">▸</span> App móvil nativa (iOS & Android)
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-primary">▸</span> Expansión a 25 ciudades
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-primary">▸</span> Sistema de hipotecas integrado
+                </li>
+              </ul>
+            </div>
+
+            <div className="fade-in-up-1 p-8 rounded-2xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20">
+              <h3 className="font-bebas text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                2025-2026
+              </h3>
+              <ul className="space-y-3 font-montserrat text-sm text-neutral-700 dark:text-neutral-300">
+                <li className="flex gap-2">
+                  <span className="text-accent">▸</span> Tokenización de propiedades
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent">▸</span> Plataforma regional (MERCOSUR)
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent">▸</span> Smart contracts para transacciones
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent">▸</span> Metaverso - recorridos virtuales 3D
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
