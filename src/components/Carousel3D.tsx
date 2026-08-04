@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -16,7 +16,18 @@ interface Carousel3DProps {
 
 export function Carousel3D({ items, onSelect }: Carousel3DProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSelect = (index: number) => {
     setActiveIndex(index);
@@ -26,21 +37,23 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
 
   const getPosition = (index: number) => {
     const distance = index - activeIndex;
-    // Position items in a 3D arc
-    const horizontalOffset = distance * 280; // Separation between items
-    const verticalOffset = Math.abs(distance) * 40; // Items to the side go up
+    // Responsive positioning
+    const horizontalOffset = isDesktop ? distance * 380 : distance * 200;
+    const verticalOffset = Math.abs(distance) * (isDesktop ? 60 : 30);
     return { horizontalOffset, verticalOffset };
   };
 
   const getRotation = (index: number) => {
     const distance = index - activeIndex;
-    return distance * -25; // Rotation angle for 3D effect
+    // Responsive rotation
+    return isDesktop ? distance * -35 : distance * -25;
   };
 
   const getScale = (index: number) => {
     const distance = Math.abs(index - activeIndex);
     if (distance === 0) return 1;
-    return 0.8;
+    // Responsive scale
+    return isDesktop ? 0.75 : 0.8;
   };
 
   const getOpacity = (index: number) => {
@@ -56,13 +69,13 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
 
   return (
     <div 
-      className="relative w-full mx-auto py-16 flex items-center justify-center"
+      className="relative w-full mx-auto py-8 md:py-16 flex items-center justify-center"
       style={{
-        perspective: '1500px',
+        perspective: isDesktop ? '2000px' : '1200px',
       }}
     >
       {/* Carousel container */}
-      <div className="relative w-full h-72 flex items-center justify-center">
+      <div className={`relative w-full ${isDesktop ? 'h-96' : 'h-72'} flex items-center justify-center`}>
         {items.map((item, index) => {
           const { horizontalOffset, verticalOffset } = getPosition(index);
           const rotation = getRotation(index);
@@ -91,11 +104,12 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
               {/* Card with 3D effect */}
               <div
                 className={`
-                  px-8 py-6 rounded-3xl font-montserrat font-bold text-2xl transition-all duration-300
+                  rounded-3xl font-montserrat font-bold transition-all duration-300
                   backdrop-blur-md border transition-colors
+                  ${isDesktop ? 'px-10 py-8 text-3xl' : 'px-6 py-4 text-xl'}
                   ${
                     activeIndex === index
-                      ? 'bg-white text-primary shadow-2xl shadow-primary/50 border-primary/50 scale-100'
+                      ? 'bg-white text-primary shadow-2xl shadow-primary/50 border-primary/50'
                       : 'bg-white/15 text-white border-white/30 shadow-xl hover:bg-white/25 hover:border-white/40'
                   }
                 `}
