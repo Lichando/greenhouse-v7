@@ -46,16 +46,12 @@ export function Header({ user }: HeaderProps) {
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
+            <Link href="/" className="group hover:opacity-80 transition-opacity">
               <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-imagenes1-8BGADuqIJcAYegc7I8SaNJd43ZreBc.png"
-                alt="Greenhouse Logo"
-                className="h-8 w-8 object-contain"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-imagenes%20%282%29-UqoLYiq27vMJIMKaClqqSdNUgoA5Ix.png"
+                alt="GREEN HOUSE"
+                className="h-10 object-contain"
               />
-              <div className="hidden sm:block">
-                <span className="block font-bebas text-lg text-white leading-none">PROPCHAIN</span>
-                <span className="block text-xs font-montserrat font-medium text-accent/90">Real Estate</span>
-              </div>
             </Link>
 
             {/* Center Navigation Trigger - Desktop */}
