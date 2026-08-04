@@ -24,40 +24,47 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
     router.push(items[index].href);
   };
 
+  const getPosition = (index: number) => {
+    const distance = index - activeIndex;
+    // Position items in a 3D arc
+    const horizontalOffset = distance * 280; // Separation between items
+    const verticalOffset = Math.abs(distance) * 40; // Items to the side go up
+    return { horizontalOffset, verticalOffset };
+  };
+
   const getRotation = (index: number) => {
     const distance = index - activeIndex;
-    return distance * 40;
+    return distance * -25; // Rotation angle for 3D effect
   };
 
   const getScale = (index: number) => {
     const distance = Math.abs(index - activeIndex);
     if (distance === 0) return 1;
-    if (distance === 1) return 0.75;
-    return 0.5;
+    return 0.8;
   };
 
   const getOpacity = (index: number) => {
     const distance = Math.abs(index - activeIndex);
     if (distance === 0) return 1;
-    if (distance === 1) return 0.6;
-    return 0.3;
+    return 0.7;
   };
 
   const getZIndex = (index: number) => {
     const distance = Math.abs(index - activeIndex);
-    return 100 - distance;
+    return 100 - distance * 10;
   };
 
   return (
     <div 
-      className="relative w-full max-w-4xl mx-auto h-40 flex items-center justify-center"
+      className="relative w-full mx-auto py-16 flex items-center justify-center"
       style={{
-        perspective: '1200px',
+        perspective: '1500px',
       }}
     >
       {/* Carousel container */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-72 flex items-center justify-center">
         {items.map((item, index) => {
+          const { horizontalOffset, verticalOffset } = getPosition(index);
           const rotation = getRotation(index);
           const scale = getScale(index);
           const opacity = getOpacity(index);
@@ -67,27 +74,29 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
             <button
               key={index}
               onClick={() => handleSelect(index)}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-out"
+              className="absolute transition-all duration-700 ease-out cursor-pointer"
               style={{
                 transformStyle: 'preserve-3d',
                 transform: `
-                  translateX(calc(-50% + ${Math.sin((rotation * Math.PI) / 180) * 180}px))
+                  translateX(${horizontalOffset}px)
+                  translateY(${verticalOffset}px)
                   rotateY(${rotation}deg)
-                  translateZ(${Math.cos((rotation * Math.PI) / 180) * 200}px)
+                  rotateZ(${Math.abs(rotation) * 0.3}deg)
                   scale(${scale})
                 `,
                 opacity: opacity,
                 zIndex: zIndex,
               }}
             >
-              {/* Card */}
+              {/* Card with 3D effect */}
               <div
                 className={`
-                  px-8 py-4 rounded-2xl font-montserrat font-bold text-lg transition-all duration-300
+                  px-8 py-6 rounded-3xl font-montserrat font-bold text-2xl transition-all duration-300
+                  backdrop-blur-md border transition-colors
                   ${
                     activeIndex === index
-                      ? 'bg-white text-primary shadow-2xl shadow-primary/40'
-                      : 'bg-white/20 text-white backdrop-blur-sm border border-white/30 shadow-lg'
+                      ? 'bg-white text-primary shadow-2xl shadow-primary/50 border-primary/50 scale-100'
+                      : 'bg-white/15 text-white border-white/30 shadow-xl hover:bg-white/25 hover:border-white/40'
                   }
                 `}
               >
@@ -99,17 +108,17 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
       </div>
 
       {/* Navigation dots */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-3 mt-12">
         {items.map((_, index) => (
           <button
             key={index}
             onClick={() => handleSelect(index)}
-            className={`h-2 rounded-full transition-all ${
+            className={`rounded-full transition-all duration-300 ${
               activeIndex === index
-                ? 'bg-white w-6'
-                : 'bg-white/40 w-2 hover:bg-white/60'
+                ? 'bg-white w-8 h-3'
+                : 'bg-white/40 w-3 h-3 hover:bg-white/60'
             }`}
-            aria-label={`Go to item ${index + 1}`}
+            aria-label={`Go to ${items[index].label}`}
           />
         ))}
       </div>
