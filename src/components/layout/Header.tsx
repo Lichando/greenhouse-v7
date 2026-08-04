@@ -46,11 +46,16 @@ export function Header({ user }: HeaderProps) {
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="group hover:opacity-80 transition-opacity">
+            <Link href="/" className="flex items-center gap-2 group hover:opacity-85 transition-opacity">
               <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-imagenes%20%282%29-UqoLYiq27vMJIMKaClqqSdNUgoA5Ix.png"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logos-08-bnrXmopZHTaexDH9J3uMSrSa6zmdUC.png"
+                alt="GREEN HOUSE icon"
+                className="h-8 w-auto object-contain"
+              />
+              <img 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logos-09-e7MsKukNc1h0Xfm2Vh4NvTVdcgYZ0q.png"
                 alt="GREEN HOUSE"
-                className="h-10 object-contain"
+                className="h-6 w-auto object-contain"
               />
             </Link>
 
