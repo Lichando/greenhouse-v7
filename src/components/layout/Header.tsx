@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { NavigationModal } from '../NavigationModal';
 
 interface HeaderProps {
   user?: { id: string; email: string; name: string } | null;
@@ -10,12 +12,10 @@ interface HeaderProps {
 
 export function Header({ user }: HeaderProps) {
   const router = useRouter();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleLogout = async () => {
-    localStorage.removeItem('token');
-    router.push('/');
-  };
+  const pathname = usePathname();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentLabel, setCurrentLabel] = useState('');
+  const [mounted, setMounted] = useState(false);
 
   const navItems = [
     { href: '/properties', label: 'Properties' },
@@ -23,99 +23,101 @@ export function Header({ user }: HeaderProps) {
     { href: '/contact', label: 'Contact' },
   ];
 
+  useEffect(() => {
+    setMounted(true);
+    const current = navItems.find(item => item.href === pathname);
+    setCurrentLabel(current?.label || 'Navigate');
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    localStorage.removeItem('token');
+    router.push('/');
+  };
+
+  if (!mounted) return null;
+
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-primary to-secondary dark:from-primary/90 dark:to-secondary/90 border-b border-primary/30 shadow-lg">
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
-            <img 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-imagenes1-8BGADuqIJcAYegc7I8SaNJd43ZreBc.png"
-              alt="Greenhouse Logo"
-              className="h-8 w-8 object-contain"
-            />
-            <div className="hidden sm:block">
-              <span className="block font-bebas text-lg text-white leading-none">PROPCHAIN</span>
-              <span className="block text-xs font-montserrat font-medium text-accent/90">Real Estate</span>
+    <>
+      <header className="sticky top-0 z-40 bg-gradient-to-r from-primary to-secondary dark:from-primary/90 dark:to-secondary/90 border-b border-primary/30 shadow-lg">
+        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
+              <img 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-imagenes1-8BGADuqIJcAYegc7I8SaNJd43ZreBc.png"
+                alt="Greenhouse Logo"
+                className="h-8 w-8 object-contain"
+              />
+              <div className="hidden sm:block">
+                <span className="block font-bebas text-lg text-white leading-none">PROPCHAIN</span>
+                <span className="block text-xs font-montserrat font-medium text-accent/90">Real Estate</span>
+              </div>
+            </Link>
+
+            {/* Center Navigation Trigger - Desktop */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="hidden md:flex items-center justify-center gap-2 px-6 py-2 rounded-full bg-white/20 hover:bg-white/30 transition-all duration-300 cursor-pointer group"
+            >
+              <span className="font-bebas text-lg text-white tracking-wide">{currentLabel}</span>
+              <svg className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Auth Section */}
+            <div className="flex items-center gap-3">
+              {user ? (
+                <>
+                  <span className="hidden text-sm font-montserrat text-white/70 sm:inline">
+                    {user.name}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="px-3 py-1.5 text-xs font-montserrat font-medium text-primary bg-white/90 hover:bg-white rounded-lg transition-all"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/auth/login"
+                    className="hidden sm:block text-sm font-montserrat font-medium text-white/70 hover:text-white transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/auth/register"
+                    className="px-4 py-1.5 text-xs sm:text-sm font-montserrat font-semibold text-primary bg-white/95 hover:bg-white rounded-lg transition-all shadow-lg"
+                  >
+                    Get Started
+                  </Link>
+                </>
+              )}
             </div>
-          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="font-montserrat font-medium text-white/80 hover:text-white transition-colors relative group"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
-              </Link>
-            ))}
+            {/* Mobile Navigation Trigger */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="md:hidden p-2 rounded-lg hover:bg-white/20 transition-all"
+              aria-label="Open navigation"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
+        </nav>
+      </header>
 
-          {/* Auth Section */}
-          <div className="flex items-center gap-3">
-            {user ? (
-              <>
-                <span className="hidden text-sm font-montserrat text-white/70 sm:inline">
-                  {user.name}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="px-3 py-1.5 text-xs font-montserrat font-medium text-primary bg-white/90 hover:bg-white rounded-lg transition-all"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/auth/login"
-                  className="hidden sm:block text-sm font-montserrat font-medium text-white/70 hover:text-white transition-colors"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/auth/register"
-                  className="px-4 py-1.5 text-xs sm:text-sm font-montserrat font-semibold text-primary bg-white/95 hover:bg-white rounded-lg transition-all shadow-lg"
-                >
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden ml-2 p-2"
-            aria-label="Toggle menu"
-          >
-            <div className="space-y-1.5">
-              <span className={`block h-0.5 w-5 bg-white transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`block h-0.5 w-5 bg-white transition-all ${menuOpen ? 'opacity-0' : ''}`} />
-              <span className={`block h-0.5 w-5 bg-white transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-            </div>
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {menuOpen && (
-          <div className="md:hidden border-t border-white/20 pb-4 space-y-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-2 font-montserrat font-medium text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        )}
-      </nav>
-    </header>
+      {/* Navigation Modal */}
+      <NavigationModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        currentPath={pathname}
+        items={navItems}
+      />
+    </>
   );
 }
