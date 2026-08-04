@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { Carousel3D } from '../Carousel3D';
 
 interface HeaderProps {
   user?: { id: string; email: string; name: string } | null;
@@ -66,36 +67,7 @@ export function Header({ user }: HeaderProps) {
 
         {/* 3D Carousel Navigation - Desktop */}
         <div className="hidden md:flex items-center justify-center flex-1 px-8">
-          <div className="perspective" style={{ perspective: '1000px' }}>
-            <div 
-              className="flex gap-1 transition-all duration-500"
-              style={{
-                transform: `translateX(calc(-${activeIndex * 100}% - ${activeIndex * 8}px))`,
-              }}
-            >
-              {navItems.map((item, index) => (
-                <button
-                  key={item.href}
-                  onClick={() => handleNavClick(index)}
-                  className={`relative px-4 py-2 font-montserrat font-medium text-sm transition-all duration-300 whitespace-nowrap rounded-lg ${
-                    activeIndex === index
-                      ? 'text-primary dark:text-primary bg-white/20 dark:bg-white/10 shadow-lg'
-                      : 'text-white/70 dark:text-white/60 hover:text-white dark:hover:text-white'
-                  }`}
-                  style={{
-                    transform: `rotateY(${(index - activeIndex) * 30}deg) translateZ(100px)`,
-                    transformStyle: 'preserve-3d',
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  {item.label}
-                  {activeIndex === index && (
-                    <span className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-primary rounded-full" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+          <Carousel3D items={navItems} onSelect={setActiveIndex} />
         </div>
 
         {/* Auth Section */}
