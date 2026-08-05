@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PropertyRepository } from '@/src/modules/properties/repository';
-import { prisma } from '@/src/core/database/prisma';
+import { getSupabaseAdmin } from '@/src/core/database/supabase';
 
 export async function GET(request: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       limit: Math.min(parseInt(searchParams.get('limit') || '10'), 100),
     };
 
-    const repository = new PropertyRepository(prisma);
+    const repository = new PropertyRepository(getSupabaseAdmin());
     const result = await repository.findMany(filters);
 
     return NextResponse.json(result, { status: 200 });

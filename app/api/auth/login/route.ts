@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { LoginSchema } from '@/src/modules/auth/validation';
 import { AuthService } from '@/src/modules/auth/service';
-import { prisma } from '@/src/core/database/prisma';
+import { getSupabaseAdmin } from '@/src/core/database/supabase';
 import { AppError } from '@/src/core/errors';
 
 export async function POST(request: NextRequest) {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = LoginSchema.parse(body);
 
-    const authService = new AuthService(prisma);
+    const authService = new AuthService(getSupabaseAdmin());
     const result = await authService.login(validatedData);
 
     const response = NextResponse.json(result, { status: 200 });

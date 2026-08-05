@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { randomUUID } from 'crypto';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { hashPassword, verifyPassword } from '../../../core/security/password';
 import { createJWT, verifyJWT } from '../../../core/auth/jwt';
 import { AppError } from '../../../core/errors';
@@ -6,14 +7,16 @@ import { logger } from '../../../core/logger';
 import { LoginInput, RegisterInput } from '../validation';
 
 export class AuthService {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private supabase: SupabaseClient) {}
 
   async register(input: RegisterInput) {
     try {
       // Check if user exists
-      const existingUser = await this.prisma.user.findUnique({
-        where: { email: input.email },
-      });
+      const { data: existingUser } = await this.supabase
+        .from('users')
+        .select('id')
+        .eq('email', input.email)
+        .maybeSingle();
 
       if (existingUser) {
         throw new AppError('Email already in use', 400);
@@ -21,13 +24,25 @@ export class AuthService {
 
       // Create user
       const hashedPassword = await hashPassword(input.password);
-      const user = await this.prisma.user.create({
-        data: {
+      const now = new Date().toISOString();
+      const { data: user, error } = await this.supabase
+        .from('users')
+        .insert({
+          id: randomUUID(),
           email: input.email,
           name: input.name,
           password: hashedPassword,
-        },
-      });
+          role: 'USER',
+          status: 'ACTIVE',
+          created_at: now,
+          updated_at: now,
+        })
+        .select('id, email, name')
+        .single();
+
+      if (error || !user) {
+        throw new AppError('Registration failed', 500);
+      }
 
       logger.info(`User registered: ${user.id}`);
       return { id: user.id, email: user.email, name: user.name };
@@ -40,9 +55,11 @@ export class AuthService {
 
   async login(input: LoginInput) {
     try {
-      const user = await this.prisma.user.findUnique({
-        where: { email: input.email },
-      });
+      const { data: user } = await this.supabase
+        .from('users')
+        .select('id, email, name, password, role, status')
+        .eq('email', input.email)
+        .maybeSingle();
 
       if (!user) {
         throw new AppError('Invalid email or password', 401);
@@ -60,15 +77,23 @@ export class AuthService {
 
       // Create session token
       const token = await createJWT({ userId: user.id });
+      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
 
       // Store session in database
-      const session = await this.prisma.session.create({
-        data: {
+      const { data: session, error } = await this.supabase
+        .from('sessions')
+        .insert({
+          id: randomUUID(),
           token,
-          userId: user.id,
-          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-        },
-      });
+          user_id: user.id,
+          expires_at: expiresAt.toISOString(),
+        })
+        .select('id')
+        .single();
+
+      if (error || !session) {
+        throw new AppError('Login failed', 500);
+      }
 
       logger.info(`User logged in: ${user.id}`);
 
@@ -86,22 +111,26 @@ export class AuthService {
 
   async verifyToken(token: string) {
     try {
-      const payload = await verifyJWT(token);
-      const session = await this.prisma.session.findUnique({
-        where: { token },
-        include: { user: true },
-      });
+      await verifyJWT(token);
 
-      if (!session || session.expiresAt < new Date()) {
+      const { data: session } = await this.supabase
+        .from('sessions')
+        .select('expires_at, users ( id, email, name, role )')
+        .eq('token', token)
+        .maybeSingle();
+
+      if (!session || new Date(session.expires_at) < new Date()) {
         throw new AppError('Session expired', 401);
       }
 
+      const sessionUser = Array.isArray(session.users) ? session.users[0] : session.users;
+
       return {
         user: {
-          id: session.user.id,
-          email: session.user.email,
-          name: session.user.name,
-          role: session.user.role,
+          id: sessionUser.id,
+          email: sessionUser.email,
+          name: sessionUser.name,
+          role: sessionUser.role,
         },
       };
     } catch (error) {
@@ -112,9 +141,7 @@ export class AuthService {
 
   async logout(token: string) {
     try {
-      await this.prisma.session.deleteMany({
-        where: { token },
-      });
+      await this.supabase.from('sessions').delete().eq('token', token);
       logger.info('User logged out');
     } catch (error) {
       logger.error('Logout failed', error);

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { AuthService } from '@/src/modules/auth/service';
-import { prisma } from '@/src/core/database/prisma';
+import { getSupabaseAdmin } from '@/src/core/database/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const authService = new AuthService(prisma);
+    const authService = new AuthService(getSupabaseAdmin());
     await authService.logout(token);
 
     const response = NextResponse.json(
