@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface NavigationModalProps {
@@ -12,7 +11,10 @@ interface NavigationModalProps {
 }
 
 export function NavigationModal({ isOpen, onClose, currentPath, items }: NavigationModalProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(() => {
+    const index = items.findIndex((item) => item.href === currentPath);
+    return index >= 0 ? index : 0;
+  });
   const [isDesktop, setIsDesktop] = useState(true);
   const router = useRouter();
 
@@ -27,11 +29,6 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
   }, []);
 
   useEffect(() => {
-    const index = items.findIndex(item => item.href === currentPath);
-    setActiveIndex(index >= 0 ? index : 0);
-  }, [currentPath, items]);
-
-  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -44,7 +41,8 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
 
   const handleSelect = (index: number) => {
     setActiveIndex(index);
-    router.push(items[index].href);
+    const item = items[index];
+    if (item) router.push(item.href);
     setTimeout(() => onClose(), 300);
   };
 

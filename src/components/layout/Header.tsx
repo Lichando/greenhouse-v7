@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -14,8 +14,7 @@ export function Header({ user }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentLabel, setCurrentLabel] = useState('');
-  const [mounted, setMounted] = useState(false);
+
 
   const navItems = [
     { href: '/properties', label: 'Propiedades' },
@@ -23,22 +22,15 @@ export function Header({ user }: HeaderProps) {
     { href: '/contact', label: 'Contacto' },
   ];
 
-  useEffect(() => {
-    setMounted(true);
-    if (pathname === '/') {
-      setCurrentLabel('Inicio');
-    } else {
-      const current = navItems.find(item => item.href === pathname);
-      setCurrentLabel(current?.label || 'Inicio');
-    }
-  }, [pathname]);
+  const currentLabel = pathname === '/'
+    ? 'Inicio'
+    : navItems.find((item) => item.href === pathname)?.label || 'Inicio';
 
   const handleLogout = async () => {
-    localStorage.removeItem('token');
+    await fetch('/api/auth/logout', { method: 'POST' });
     router.push('/');
+    router.refresh();
   };
-
-  if (!mounted) return null;
 
   return (
     <>

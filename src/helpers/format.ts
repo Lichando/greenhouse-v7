@@ -1,7 +1,5 @@
-import { Decimal } from '@prisma/client/runtime/library';
-
-export function formatPrice(price: number | Decimal, currency: string = 'ARS'): string {
-  const numPrice = typeof price === 'number' ? price : Number(price);
+export function formatPrice(price: number | string, currency: string = 'ARS'): string {
+  const numPrice = Number(price);
   
   const currencyFormatter = new Intl.NumberFormat('es-AR', {
     style: 'currency',

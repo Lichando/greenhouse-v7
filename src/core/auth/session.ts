@@ -23,7 +23,20 @@ export async function getSession(): Promise<SessionPayload | null> {
     }
 
     const payload = await verifyToken(token);
-    return payload as SessionPayload;
+    if (
+      typeof payload.userId !== 'string' ||
+      typeof payload.email !== 'string' ||
+      typeof payload.name !== 'string' ||
+      !['ADMIN', 'MANAGER', 'EDITOR', 'USER'].includes(String(payload.role))
+    ) {
+      return null;
+    }
+    return {
+      userId: payload.userId,
+      email: payload.email,
+      name: payload.name,
+      role: payload.role as SessionPayload['role'],
+    };
   } catch {
     return null;
   }

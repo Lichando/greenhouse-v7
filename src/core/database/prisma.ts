@@ -1,13 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: ['query', 'error', 'warn'],
-  });
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
-
+// Database access is handled by Supabase. This compatibility module intentionally
+// exposes no Prisma client so legacy imports cannot create a second database connection.
+export const prisma = null;
 export default prisma;

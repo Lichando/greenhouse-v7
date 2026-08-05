@@ -1,4 +1,4 @@
-import { AppError, isAppError } from '@/src/core/errors';
+import { isAppError } from '@/src/core/errors';
 
 export interface ApiResponse<T = unknown> {
   success: boolean;

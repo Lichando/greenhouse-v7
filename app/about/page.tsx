@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { MainLayout } from '@/src/components/layout/MainLayout';
 
 export const metadata = {
@@ -410,12 +411,12 @@ export default function AboutPage() {
           <p className="text-white/90 font-montserrat mb-8">
             Únete a miles de usuarios que ya confían en GREEN HOUSE
           </p>
-          <a 
+          <Link
             href="/properties"
             className="inline-block px-8 py-3 bg-white text-primary hover:bg-neutral-100 font-montserrat font-semibold rounded-lg transition-all"
           >
             Explorar Propiedades
-          </a>
+          </Link>
         </div>
       </section>
     </MainLayout>

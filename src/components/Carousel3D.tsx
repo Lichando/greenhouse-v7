@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface Item {
@@ -32,7 +31,8 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
   const handleSelect = (index: number) => {
     setActiveIndex(index);
     onSelect?.(index);
-    router.push(items[index].href);
+    const item = items[index];
+    if (item) router.push(item.href);
   };
 
   const getPosition = (index: number) => {
@@ -132,7 +132,7 @@ export function Carousel3D({ items, onSelect }: Carousel3DProps) {
                 ? 'bg-white w-8 h-3'
                 : 'bg-white/40 w-3 h-3 hover:bg-white/60'
             }`}
-            aria-label={`Go to ${items[index].label}`}
+              aria-label={`Go to ${items[index]?.label ?? 'item'}`}
           />
         ))}
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { PropertyDTO } from '../types';
 import { formatPrice } from '../../../helpers/format';
@@ -45,7 +46,7 @@ export function PropertyDetail({ property }: PropertyDetailProps) {
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center gap-2 text-sm font-montserrat text-neutral-500 dark:text-neutral-400">
-        <a className="transition-colors hover:text-primary" href="/properties">Propiedades</a>
+        <Link className="transition-colors hover:text-primary" href="/properties">Propiedades</Link>
         <span>/</span>
         <span className="truncate text-neutral-700 dark:text-neutral-300">{property.title}</span>
       </div>
