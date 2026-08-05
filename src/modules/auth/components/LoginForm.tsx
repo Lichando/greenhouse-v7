@@ -38,7 +38,12 @@ export function LoginForm() {
 
       if (error) {
         if (error.message.toLowerCase().includes('email not confirmed')) {
-          throw new Error('Confirmá tu correo electrónico antes de ingresar.');
+          await supabase.auth.resend({
+            type: 'signup',
+            email: validatedData.email,
+          });
+          router.push(`/auth/verify?email=${encodeURIComponent(validatedData.email)}`);
+          return;
         }
         throw new Error('Correo o contraseña incorrectos.');
       }

@@ -52,7 +52,7 @@ export function RegisterForm() {
         throw new Error('No pudimos crear tu cuenta. Revisá tus datos e intentá nuevamente.');
       }
 
-      router.push('/auth/login?registered=true');
+      router.push(`/auth/verify?email=${encodeURIComponent(validatedData.email)}`);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.';
       setError(message);
