@@ -35,16 +35,11 @@ export function VerifyCodeForm() {
       const { error: verifyError } = await supabase.auth.verifyOtp({
         email: normalizedEmail,
         token: normalizedCode,
-        // `Confirm signup` tokens must use the signup OTP type.
-        type: 'signup',
+        // Supabase's JavaScript reference validates signup OTPs as email OTPs.
+        type: 'email',
       });
 
       if (verifyError) {
-        console.log('[v0] Supabase OTP verification failed:', {
-          status: verifyError.status,
-          code: verifyError.code,
-          message: verifyError.message,
-        });
         const reason = `${verifyError.code ?? ''} ${verifyError.message}`.toLowerCase();
         setError(
           reason.includes('expired')
@@ -60,8 +55,7 @@ export function VerifyCodeForm() {
 
       router.push('/dashboard');
       router.refresh();
-    } catch (error) {
-      console.log('[v0] Unexpected OTP verification error:', error);
+    } catch {
       setError('No pudimos verificar la cuenta. Intentá nuevamente.');
     } finally {
       setLoading(false);
