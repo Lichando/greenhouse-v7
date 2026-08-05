@@ -17,6 +17,7 @@ export function Header({ user }: HeaderProps) {
 
 
   const navItems = [
+    { href: '/', label: 'Inicio' },
     { href: '/properties', label: 'Propiedades' },
     { href: '/about', label: 'Sobre Nosotros' },
     { href: '/contact', label: 'Contacto' },
