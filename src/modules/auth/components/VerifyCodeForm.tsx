@@ -32,22 +32,12 @@ export function VerifyCodeForm() {
     setLoading(true);
     try {
       const supabase = createClient();
-      let { error: verifyError } = await supabase.auth.verifyOtp({
+      const { error: verifyError } = await supabase.auth.verifyOtp({
         email: normalizedEmail,
         token: normalizedCode,
-        type: 'signup',
+        // Supabase sends the Confirm signup email token as an email OTP.
+        type: 'email',
       });
-
-      // Supabase uses `signup` for Confirm signup emails. The `email` fallback
-      // also supports projects configured to send the same token as an email OTP.
-      if (verifyError) {
-        const fallback = await supabase.auth.verifyOtp({
-          email: normalizedEmail,
-          token: normalizedCode,
-          type: 'email',
-        });
-        verifyError = fallback.error;
-      }
 
       if (verifyError) {
         const reason = verifyError.message.toLowerCase();
