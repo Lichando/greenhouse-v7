@@ -35,8 +35,8 @@ export function VerifyCodeForm() {
       const { error: verifyError } = await supabase.auth.verifyOtp({
         email: normalizedEmail,
         token: normalizedCode,
-        // Confirm signup templates must be verified with the signup type.
-        type: 'signup',
+        // Supabase documents Confirm signup's six-digit .Token as an email OTP.
+        type: 'email',
       });
 
       if (verifyError) {
