@@ -30,13 +30,6 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
   }, []);
 
   useEffect(() => {
-    if (!isOpen) return;
-
-    const index = items.findIndex((item) => item.href === currentPath);
-    setActiveIndex(index >= 0 ? index : 0);
-  }, [currentPath, isOpen, items]);
-
-  useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
