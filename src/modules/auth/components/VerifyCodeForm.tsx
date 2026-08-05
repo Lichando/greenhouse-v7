@@ -35,22 +35,34 @@ export function VerifyCodeForm() {
       const { error: verifyError } = await supabase.auth.verifyOtp({
         email: normalizedEmail,
         token: normalizedCode,
-        // Supabase documents Confirm signup's six-digit .Token as an email OTP.
-        type: 'email',
+        // `Confirm signup` tokens must use the signup OTP type.
+        type: 'signup',
       });
 
       if (verifyError) {
-        const reason = verifyError.message.toLowerCase();
+        console.log('[v0] Supabase OTP verification failed:', {
+          status: verifyError.status,
+          code: verifyError.code,
+          message: verifyError.message,
+        });
+        const reason = `${verifyError.code ?? ''} ${verifyError.message}`.toLowerCase();
         setError(
           reason.includes('expired')
-            ? 'El código venció. Solicitá uno nuevo.'
-            : 'El código no coincide. Usá el código del último correo recibido o solicitá uno nuevo.',
+            ? 'El código venció o quedó invalidado. Solicitá uno nuevo.'
+            : reason.includes('already') || reason.includes('confirmed')
+              ? 'Esta cuenta ya está verificada. Podés iniciar sesión.'
+              : reason.includes('rate')
+                ? 'Demasiados intentos. Esperá unos minutos antes de solicitar otro código.'
+                : 'El código no coincide. Usá el código del último correo recibido.',
         );
         return;
       }
 
       router.push('/dashboard');
       router.refresh();
+    } catch (error) {
+      console.log('[v0] Unexpected OTP verification error:', error);
+      setError('No pudimos verificar la cuenta. Intentá nuevamente.');
     } finally {
       setLoading(false);
     }

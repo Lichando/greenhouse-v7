@@ -33,8 +33,9 @@ export function RegisterForm() {
       const validatedData = RegisterSchema.parse(formData);
 
       const supabase = createClient();
+      const normalizedEmail = validatedData.email.trim().toLowerCase();
       const { error } = await supabase.auth.signUp({
-        email: validatedData.email,
+        email: normalizedEmail,
         password: validatedData.password,
         options: {
           emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${window.location.origin}/auth/callback`,
@@ -52,7 +53,7 @@ export function RegisterForm() {
         throw new Error('No pudimos crear tu cuenta. Revisá tus datos e intentá nuevamente.');
       }
 
-      router.push(`/auth/verify?email=${encodeURIComponent(validatedData.email)}`);
+      router.push(`/auth/verify?email=${encodeURIComponent(normalizedEmail)}`);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.';
       setError(message);
