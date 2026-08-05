@@ -7,12 +7,11 @@ interface PropertyPageProps {
   params: Promise<{ slug: string }>;
 }
 
-// Mock property data - in production, this would come from API
 const mockProperty = {
   id: '1',
   slug: 'modern-apartment-downtown',
-  title: 'Modern Apartment in Downtown',
-  description: 'Beautiful modern apartment located in the heart of downtown Buenos Aires. Features high ceilings, natural light, and premium finishes. Close to restaurants, shopping, and public transportation.',
+  title: 'Departamento moderno en el centro',
+  description: 'Hermoso departamento moderno ubicado en el corazón de Buenos Aires. Cuenta con ambientes amplios, excelente luz natural y terminaciones premium. Se encuentra cerca de restaurantes, comercios y transporte público.',
   type: 'APARTMENT',
   operation: 'SALE',
   status: 'ACTIVE',
@@ -23,7 +22,7 @@ const mockProperty = {
   area: 85,
   city: 'Buenos Aires',
   province: 'Buenos Aires',
-  address: '123 Corrientes Avenue',
+  address: 'Avenida Corrientes 123',
   latitude: -34.6037,
   longitude: -58.3816,
   createdAt: new Date('2026-07-15'),
@@ -31,53 +30,33 @@ const mockProperty = {
   deletedAt: null,
   images: [
     {
-      id: 'img-1',
-      propertyId: '1',
+      id: 'img-1', propertyId: '1',
       imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&h=700&fit=crop',
-      isPrimary: true,
-      order: 0,
-      createdAt: new Date(),
+      isPrimary: true, order: 0, createdAt: new Date(),
     },
   ],
 };
 
-export async function generateMetadata(
-  { params }: PropertyPageProps
-): Promise<Metadata> {
+export async function generateMetadata({ params }: PropertyPageProps): Promise<Metadata> {
   const { slug } = await params;
-
-  // In a real app, this would fetch from the database
-  if (slug === 'modern-apartment-downtown') {
+  if (slug === mockProperty.slug) {
     return {
-      title: mockProperty.title,
+      title: `${mockProperty.title} | GREEN HOUSE`,
       description: mockProperty.description.substring(0, 160),
-      openGraph: {
-        title: mockProperty.title,
-        description: mockProperty.description,
-        type: 'website',
-        images: mockProperty.images.map((img) => ({
-          url: img.imageUrl,
-          alt: mockProperty.title,
-        })),
-      },
+      openGraph: { title: mockProperty.title, description: mockProperty.description, type: 'website', images: [{ url: mockProperty.images[0]?.imageUrl || '', alt: mockProperty.title }] },
     };
   }
-
   return {};
 }
 
 export default async function PropertyPage({ params }: PropertyPageProps) {
   const { slug } = await params;
-
-  // In a real app, this would fetch from the database
-  if (slug !== 'modern-apartment-downtown') {
-    notFound();
-  }
+  if (slug !== mockProperty.slug) notFound();
 
   return (
     <MainLayout>
-      <div className="px-4 py-12 sm:px-6 lg:px-8 fade-in">
-        <div className="fade-in-up mx-auto max-w-6xl">
+      <div className="bg-neutral-50/60 px-4 py-10 dark:bg-neutral-950/30 sm:px-6 lg:px-8 lg:py-14">
+        <div className="mx-auto max-w-7xl fade-in-up">
           <PropertyDetail property={mockProperty} />
         </div>
       </div>
