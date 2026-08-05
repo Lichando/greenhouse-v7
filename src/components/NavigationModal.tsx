@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 
 interface NavigationModalProps {
@@ -29,13 +30,16 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    if (!isOpen) return;
+
+    const index = items.findIndex((item) => item.href === currentPath);
+    setActiveIndex(index >= 0 ? index : 0);
+  }, [currentPath, isOpen, items]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -43,7 +47,7 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
     setActiveIndex(index);
     const item = items[index];
     if (item) router.push(item.href);
-    setTimeout(() => onClose(), 300);
+    onClose();
   };
 
   const handlePrevious = () => {
@@ -56,59 +60,57 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
     setActiveIndex(newIndex);
   };
 
+  const getDistance = (index: number) => {
+    const rawDistance = index - activeIndex;
+    const total = items.length;
+
+    if (rawDistance > total / 2) return rawDistance - total;
+    if (rawDistance < -total / 2) return rawDistance + total;
+    return rawDistance;
+  };
+
   const getPosition = (index: number) => {
-    const distance = index - activeIndex;
-    const horizontalOffset = isDesktop ? distance * 380 : distance * 200;
-    const verticalOffset = Math.abs(distance) * (isDesktop ? 60 : 30);
+    const distance = getDistance(index);
+    const horizontalOffset = isDesktop ? distance * 250 : distance * 145;
+    const verticalOffset = Math.abs(distance) * (isDesktop ? 34 : 22);
     return { horizontalOffset, verticalOffset };
   };
 
   const getRotation = (index: number) => {
-    const distance = index - activeIndex;
-    return isDesktop ? distance * -35 : distance * -25;
+    const distance = getDistance(index);
+    return isDesktop ? distance * -22 : distance * -18;
   };
 
   const getScale = (index: number) => {
-    const distance = Math.abs(index - activeIndex);
+    const distance = Math.abs(getDistance(index));
     if (distance === 0) return 1;
-    return isDesktop ? 0.75 : 0.8;
+    return isDesktop ? 0.78 : 0.8;
   };
 
   const getOpacity = (index: number) => {
-    const distance = Math.abs(index - activeIndex);
+    const distance = Math.abs(getDistance(index));
     if (distance === 0) return 1;
-    return 0.7;
+    return distance > 1 ? 0.45 : 0.8;
   };
 
   const getZIndex = (index: number) => {
-    const distance = Math.abs(index - activeIndex);
+    const distance = Math.abs(getDistance(index));
     return 100 - distance * 10;
   };
 
-  return (
+  if (!isOpen) return null;
+
+  return createPortal(
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className="fixed inset-0 z-40 bg-black/60"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div
-        className={`fixed inset-0 z-50 flex items-center justify-center pointer-events-none ${
-          isOpen ? 'opacity-100' : 'opacity-0'
-        } transition-opacity duration-300`}
-      >
-        <div
-          className={`pointer-events-auto w-full max-w-2xl mx-auto px-4 py-8 md:py-16 transition-all duration-300 ${
-            isOpen ? 'scale-100' : 'scale-95'
-          }`}
-          style={{
-            perspective: isDesktop ? '2000px' : '1200px',
-          }}
-        >
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="relative w-full max-w-5xl mx-auto px-4 py-8 md:py-16">
           {/* Carousel container */}
           <div className={`relative w-full ${isDesktop ? 'h-96' : 'h-72'} flex items-center justify-center`}>
             {items.map((item, index) => {
@@ -196,6 +198,7 @@ export function NavigationModal({ isOpen, onClose, currentPath, items }: Navigat
           </button>
         </div>
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
