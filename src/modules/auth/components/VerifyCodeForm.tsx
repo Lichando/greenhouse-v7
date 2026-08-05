@@ -32,12 +32,24 @@ export function VerifyCodeForm() {
     setLoading(true);
     try {
       const supabase = createClient();
-      const { error: verifyError } = await supabase.auth.verifyOtp({
-        email: normalizedEmail,
-        token: normalizedCode,
-        // Supabase's JavaScript reference validates signup OTPs as email OTPs.
-        type: 'email',
-      });
+      const otpTypes = ['signup', 'email'] as const;
+      let verifyError: { code?: string; message: string; status?: number } | null = null;
+
+      for (const type of otpTypes) {
+        const result = await supabase.auth.verifyOtp({
+          email: normalizedEmail,
+          token: normalizedCode,
+          type,
+        });
+
+        if (!result.error) {
+          router.push('/dashboard');
+          router.refresh();
+          return;
+        }
+
+        verifyError = result.error;
+      }
 
       if (verifyError) {
         const reason = `${verifyError.code ?? ''} ${verifyError.message}`.toLowerCase();
