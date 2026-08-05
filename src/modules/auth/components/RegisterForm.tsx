@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { RegisterSchema } from '../validation';
+import { createClient } from '@/lib/supabase/client';
 
 export function RegisterForm() {
   const router = useRouter();
@@ -31,19 +32,24 @@ export function RegisterForm() {
     try {
       const validatedData = RegisterSchema.parse(formData);
 
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: validatedData.email,
-          name: validatedData.name,
-          password: validatedData.password,
-        }),
+      const supabase = createClient();
+      const { error } = await supabase.auth.signUp({
+        email: validatedData.email,
+        password: validatedData.password,
+        options: {
+          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${window.location.origin}/auth/callback`,
+          data: { name: validatedData.name },
+        },
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'No pudimos crear tu cuenta. Revisá tus datos e intentá nuevamente.');
+      if (error) {
+        if (error.message.toLowerCase().includes('password')) {
+          throw new Error('La contraseña debe tener al menos 8 caracteres.');
+        }
+        if (error.message.toLowerCase().includes('rate limit')) {
+          throw new Error('Demasiados intentos. Esperá unos minutos e intentá nuevamente.');
+        }
+        throw new Error('No pudimos crear tu cuenta. Revisá tus datos e intentá nuevamente.');
       }
 
       router.push('/auth/login?registered=true');

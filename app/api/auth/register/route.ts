@@ -1,41 +1,30 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { RegisterSchema } from '@/src/modules/auth/validation';
-import { AuthService } from '@/src/modules/auth/service';
-import { getSupabaseAdmin } from '@/src/core/database/supabase';
-import { AppError } from '@/src/core/errors';
+import { createClient } from '@/lib/supabase/server';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const validatedData = RegisterSchema.parse(body);
+    const input = RegisterSchema.parse(body);
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signUp({
+      email: input.email,
+      password: input.password,
+      options: {
+        emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${new URL(request.url).origin}/auth/callback`,
+        data: { name: input.name },
+      },
+    });
 
-    const authService = new AuthService(getSupabaseAdmin());
-    const user = await authService.register(validatedData);
-
-    return NextResponse.json(
-      { message: 'Registration successful', user },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error('[v0] Registration error:', error);
-
-    if (error instanceof AppError) {
-      return NextResponse.json(
-        { message: error.message },
-        { status: error.statusCode }
-      );
+    if (error) {
+      return NextResponse.json({ message: 'No pudimos crear tu cuenta. Revisá los datos e intentá nuevamente.' }, { status: 400 });
     }
 
-    if (error instanceof Error && error.message.includes('validation')) {
-      return NextResponse.json(
-        { message: 'Invalid input data' },
-        { status: 400 }
-      );
-    }
-
-    return NextResponse.json(
-      { message: 'Registration failed' },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      message: data.session ? 'Registro exitoso.' : 'Revisá tu correo para confirmar la cuenta.',
+      user: data.user ? { id: data.user.id, email: data.user.email, name: input.name } : null,
+    }, { status: 201 });
+  } catch {
+    return NextResponse.json({ message: 'Los datos enviados no son válidos.' }, { status: 400 });
   }
 }

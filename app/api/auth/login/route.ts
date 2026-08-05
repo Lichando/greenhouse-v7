@@ -1,48 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { LoginSchema } from '@/src/modules/auth/validation';
-import { AuthService } from '@/src/modules/auth/service';
-import { getSupabaseAdmin } from '@/src/core/database/supabase';
-import { AppError } from '@/src/core/errors';
+import { createClient } from '@/lib/supabase/server';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const validatedData = LoginSchema.parse(body);
+    const input = LoginSchema.parse(body);
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signInWithPassword(input);
 
-    const authService = new AuthService(getSupabaseAdmin());
-    const result = await authService.login(validatedData);
+    if (error) {
+      const message = error.message.toLowerCase().includes('email not confirmed')
+        ? 'Confirmá tu correo electrónico antes de ingresar.'
+        : 'Correo o contraseña incorrectos.';
+      return NextResponse.json({ message }, { status: 401 });
+    }
 
-    const response = NextResponse.json(result, { status: 200 });
-
-    // Set HTTP-only cookie
-    response.cookies.set('token', result.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60, // 7 days
+    return NextResponse.json({
+      user: data.user ? { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.name ?? '' } : null,
     });
-
-    return response;
-  } catch (error) {
-    console.error('[v0] Login error:', error);
-
-    if (error instanceof AppError) {
-      return NextResponse.json(
-        { message: error.message },
-        { status: error.statusCode }
-      );
-    }
-
-    if (error instanceof Error && error.message.includes('validation')) {
-      return NextResponse.json(
-        { message: 'Invalid input data' },
-        { status: 400 }
-      );
-    }
-
-    return NextResponse.json(
-      { message: 'Login failed' },
-      { status: 500 }
-    );
+  } catch {
+    return NextResponse.json({ message: 'Los datos enviados no son válidos.' }, { status: 400 });
   }
 }

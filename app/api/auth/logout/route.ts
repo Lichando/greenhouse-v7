@@ -1,38 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { AuthService } from '@/src/modules/auth/service';
-import { getSupabaseAdmin } from '@/src/core/database/supabase';
+import { NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
 
-export async function POST(request: NextRequest) {
-  try {
-    const token = request.cookies.get('token')?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { message: 'Not authenticated' },
-        { status: 401 }
-      );
-    }
-
-    const authService = new AuthService(getSupabaseAdmin());
-    await authService.logout(token);
-
-    const response = NextResponse.json(
-      { message: 'Logged out successfully' },
-      { status: 200 }
-    );
-
-    // Clear cookie
-    response.cookies.set('token', '', {
-      httpOnly: true,
-      maxAge: 0,
-    });
-
-    return response;
-  } catch (error) {
-    console.error('[v0] Logout error:', error);
-    return NextResponse.json(
-      { message: 'Logout failed' },
-      { status: 500 }
-    );
-  }
+export async function POST() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  return NextResponse.json({ success: true });
 }

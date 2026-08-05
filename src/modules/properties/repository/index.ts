@@ -60,7 +60,7 @@ export class PropertyRepository {
     return data ? this.mapToDTO(data) : null;
   }
 
-  async findMany(filters: PropertyFilter) {
+  async findMany(filters: Partial<PropertyFilter> & { page?: number; limit?: number; sortBy?: keyof typeof SORT_COLUMNS; sortOrder?: 'asc' | 'desc' }) {
     const {
       page = 1,
       limit = 10,

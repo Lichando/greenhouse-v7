@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LoginSchema } from '../validation';
+import { createClient } from '@/lib/supabase/client';
 
 export function LoginForm() {
   const router = useRouter();
@@ -29,20 +30,21 @@ export function LoginForm() {
     try {
       const validatedData = LoginSchema.parse(formData);
 
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(validatedData),
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({
+        email: validatedData.email,
+        password: validatedData.password,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'No pudimos iniciar sesión. Revisá tus datos e intentá nuevamente.');
+      if (error) {
+        if (error.message.toLowerCase().includes('email not confirmed')) {
+          throw new Error('Confirmá tu correo electrónico antes de ingresar.');
+        }
+        throw new Error('Correo o contraseña incorrectos.');
       }
 
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
       router.push('/dashboard');
+      router.refresh();
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.';
       setError(message);

@@ -14,6 +14,8 @@ export async function GET(request: NextRequest) {
       maxPrice: searchParams.get('maxPrice') ? parseFloat(searchParams.get('maxPrice') || '0') : undefined,
       page: parseInt(searchParams.get('page') || '1'),
       limit: Math.min(parseInt(searchParams.get('limit') || '10'), 100),
+      sortBy: 'createdAt' as const,
+      sortOrder: 'desc' as const,
     };
 
     const repository = new PropertyRepository(getSupabaseAdmin());
