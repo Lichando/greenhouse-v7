@@ -21,7 +21,10 @@ export function VerifyCodeForm() {
     setError(null);
     setMessage(null);
 
-    if (!email || !/^\d{6}$/.test(code)) {
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedCode = code.replace(/\s/g, '');
+
+    if (!normalizedEmail || !/^\d{6}$/.test(normalizedCode)) {
       setError('Ingresá el correo y el código de 6 dígitos que recibiste.');
       return;
     }
@@ -29,14 +32,30 @@ export function VerifyCodeForm() {
     setLoading(true);
     try {
       const supabase = createClient();
-      const { error: verifyError } = await supabase.auth.verifyOtp({
-        email,
-        token: code,
+      let { error: verifyError } = await supabase.auth.verifyOtp({
+        email: normalizedEmail,
+        token: normalizedCode,
         type: 'signup',
       });
 
+      // Supabase uses `signup` for Confirm signup emails. The `email` fallback
+      // also supports projects configured to send the same token as an email OTP.
       if (verifyError) {
-        setError('El código es incorrecto o ya venció.');
+        const fallback = await supabase.auth.verifyOtp({
+          email: normalizedEmail,
+          token: normalizedCode,
+          type: 'email',
+        });
+        verifyError = fallback.error;
+      }
+
+      if (verifyError) {
+        const reason = verifyError.message.toLowerCase();
+        setError(
+          reason.includes('expired')
+            ? 'El código venció. Solicitá uno nuevo.'
+            : 'El código no coincide. Usá el código del último correo recibido o solicitá uno nuevo.',
+        );
         return;
       }
 
@@ -50,17 +69,19 @@ export function VerifyCodeForm() {
   const handleResend = async () => {
     setError(null);
     setMessage(null);
-    if (!email) {
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!normalizedEmail) {
       setError('Ingresá tu correo electrónico para reenviar el código.');
       return;
     }
 
+    setEmail(normalizedEmail);
     setResending(true);
     try {
       const supabase = createClient();
       const { error: resendError } = await supabase.auth.resend({
         type: 'signup',
-        email,
+        email: normalizedEmail,
       });
 
       if (resendError) {
