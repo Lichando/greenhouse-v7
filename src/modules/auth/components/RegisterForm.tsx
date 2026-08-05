@@ -38,7 +38,7 @@ export function RegisterForm() {
         email: normalizedEmail,
         password: validatedData.password,
         options: {
-          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/auth/verified`,
           data: { name: validatedData.name },
         },
       });
