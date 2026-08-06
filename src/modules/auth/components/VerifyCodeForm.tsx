@@ -157,6 +157,7 @@ export function VerifyCodeForm() {
           {resending ? 'Reenviando...' : 'Reenviar código'}
         </button>
         <Link href="/auth/login" className="text-neutral-600 transition hover:text-primary dark:text-neutral-400">Volver a iniciar sesión</Link>
+        <Link href="/" className="text-neutral-600 transition hover:text-primary dark:text-neutral-400">Salir y volver al inicio</Link>
       </div>
     </form>
   );

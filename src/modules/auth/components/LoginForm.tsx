@@ -117,6 +117,13 @@ export function LoginForm() {
           Registrate
         </Link>
       </p>
+
+      <Link
+        href="/"
+        className="flex w-full items-center justify-center rounded-xl border border-neutral-300 px-4 py-3 font-montserrat text-sm font-semibold text-neutral-700 transition hover:border-primary hover:text-primary dark:border-neutral-700 dark:text-neutral-300"
+      >
+        Salir y volver al inicio
+      </Link>
     </form>
   );
 }

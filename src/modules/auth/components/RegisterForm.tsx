@@ -98,6 +98,13 @@ export function RegisterForm() {
         ¿Ya tenés una cuenta?{' '}
         <Link href="/auth/login" className="font-bold text-primary transition hover:text-primary/80">Iniciá sesión</Link>
       </p>
+
+      <Link
+        href="/"
+        className="flex w-full items-center justify-center rounded-xl border border-neutral-300 px-4 py-3 font-montserrat text-sm font-semibold text-neutral-700 transition hover:border-primary hover:text-primary dark:border-neutral-700 dark:text-neutral-300"
+      >
+        Salir y volver al inicio
+      </Link>
     </form>
   );
 }
