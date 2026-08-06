@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: seoConfig.title,
   },
   description: seoConfig.description,
-  keywords: ['real estate', 'properties', 'buy', 'rent', 'Argentina'],
+  keywords: ['GreenHouse Brokers', 'propiedades', 'inmobiliaria', 'comprar', 'vender', 'alquilar', 'Argentina'],
   authors: [{ name: seoConfig.author }],
   creator: seoConfig.author,
   generator: 'Next.js',

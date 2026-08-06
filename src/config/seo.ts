@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 import { APP_NAME, APP_URL } from './app';
 
 export const seoConfig = {
-  title: 'Bienes Raíces - Real Estate Platform',
-  description: 'Find the best properties in Argentina. Buy, sell, or rent with confidence.',
-  siteName: 'Bienes Raíces',
+  title: 'GreenHouse Brokers | Propiedades con propósito',
+  description: 'Encontrá, vendé y desarrollá propiedades con el respaldo de GreenHouse Brokers.',
+  siteName: 'GreenHouse Brokers',
   siteUrl: APP_URL,
-  author: 'Bienes Raíces Team',
+  author: 'GreenHouse Brokers',
 };
 
 export const defaultMetadata: Metadata = {

@@ -45,7 +45,7 @@ export function Header({ user }: HeaderProps) {
                 alt="GREEN HOUSE icon"
                 className="h-8 w-auto object-contain"
               />
-              <span className="font-bebas text-lg font-bold text-white tracking-wider">GREEN HOUSE</span>
+              <span className="font-bebas text-lg font-bold text-white tracking-wider">GREENHOUSE BROKERS</span>
             </Link>
 
             {/* Center Navigation Trigger - Desktop */}
