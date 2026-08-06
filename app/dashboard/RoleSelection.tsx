@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
@@ -32,7 +33,15 @@ export function RoleSelection({ userId }: { userId: string }) {
   return (
     <main className="min-h-screen bg-background px-5 py-12 text-foreground sm:px-8 lg:px-12">
       <div className="mx-auto max-w-6xl">
-        <p className="font-bebas text-3xl tracking-wide text-primary">GreenHouse</p>
+        <div className="flex items-center justify-between gap-4">
+          <p className="font-bebas text-3xl tracking-wide text-primary">GreenHouse</p>
+          <Link
+            href="/"
+            className="rounded-xl border border-border px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:border-primary hover:text-primary"
+          >
+            Salir
+          </Link>
+        </div>
         <div className="mt-16 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Primer paso</p>
           <h1 className="mt-3 text-5xl tracking-wide sm:text-7xl">¿Cómo querés utilizar GreenHouse?</h1>
