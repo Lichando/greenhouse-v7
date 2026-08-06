@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { MainLayout } from '@/src/components/layout/MainLayout';
 import { VerifyCodeForm } from '@/src/modules/auth/components/VerifyCodeForm';
 
@@ -26,7 +27,17 @@ export default function VerifyPage() {
               <h1 className="font-bebas text-5xl tracking-tight text-neutral-900 dark:text-white">Verificá tu correo</h1>
               <p className="mt-2 font-montserrat text-sm leading-6 text-neutral-600 dark:text-neutral-400">Ingresá el código de 6 dígitos que enviamos a tu email.</p>
             </div>
-            <VerifyCodeForm />
+            <Suspense
+              fallback={
+                <div className="space-y-4" aria-label="Cargando formulario de verificación">
+                  <div className="h-12 animate-pulse rounded-xl bg-neutral-100 dark:bg-neutral-800" />
+                  <div className="h-12 animate-pulse rounded-xl bg-neutral-100 dark:bg-neutral-800" />
+                  <div className="h-12 animate-pulse rounded-xl bg-neutral-100 dark:bg-neutral-800" />
+                </div>
+              }
+            >
+              <VerifyCodeForm />
+            </Suspense>
           </div>
         </div>
       </div>
