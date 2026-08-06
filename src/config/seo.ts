@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { APP_NAME, APP_URL } from './app';
 
 export const seoConfig = {
-  title: 'GreenHouse Brokers | Propiedades con propósito',
-  description: 'Encontrá, vendé y desarrollá propiedades con el respaldo de GreenHouse Brokers.',
+  title: 'GreenHouse Brokers | Conectamos negocios. Generamos oportunidades.',
+  description: 'La red de negocios inmobiliarios que conecta personas, oportunidades y proyectos para hacer crecer cada operación.',
   siteName: 'GreenHouse Brokers',
   siteUrl: APP_URL,
   author: 'GreenHouse Brokers',
