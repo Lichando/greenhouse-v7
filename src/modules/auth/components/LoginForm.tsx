@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LoginSchema } from '../validation';
+import { getAuthValidationMessage, LoginSchema } from '../validation';
 import { createClient } from '@/lib/supabase/client';
 
 export function LoginForm() {
@@ -51,7 +51,8 @@ export function LoginForm() {
       router.push('/dashboard');
       router.refresh();
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.';
+      const validationMessage = getAuthValidationMessage(err);
+      const message = validationMessage ?? (err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.');
       setError(message);
     } finally {
       setLoading(false);

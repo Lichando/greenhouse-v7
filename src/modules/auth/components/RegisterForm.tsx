@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { RegisterSchema } from '../validation';
+import { getAuthValidationMessage, RegisterSchema } from '../validation';
 import { createClient } from '@/lib/supabase/client';
 
 export function RegisterForm() {
@@ -55,7 +55,8 @@ export function RegisterForm() {
 
       router.push(`/auth/verify?email=${encodeURIComponent(normalizedEmail)}`);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.';
+      const validationMessage = getAuthValidationMessage(err);
+      const message = validationMessage ?? (err instanceof Error ? err.message : 'Ocurrió un error. Intentá nuevamente.');
       setError(message);
     } finally {
       setLoading(false);
