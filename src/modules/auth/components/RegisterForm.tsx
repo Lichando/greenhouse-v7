@@ -73,22 +73,22 @@ export function RegisterForm() {
 
       <div className="space-y-2">
         <label htmlFor="name" className="block font-montserrat text-sm font-semibold text-neutral-800 dark:text-neutral-200">Nombre completo</label>
-        <input id="name" type="text" name="name" value={formData.name} onChange={handleChange} autoComplete="name" placeholder="Tu nombre y apellido" required className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
+        <input id="name" type="text" name="name" value={formData.name} onChange={handleChange} autoComplete="name" placeholder="Tu nombre y apellido" className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
       </div>
 
       <div className="space-y-2">
         <label htmlFor="email" className="block font-montserrat text-sm font-semibold text-neutral-800 dark:text-neutral-200">Correo electrónico</label>
-        <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} autoComplete="email" placeholder="nombre@ejemplo.com" required className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
+        <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} autoComplete="email" placeholder="nombre@ejemplo.com" className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
       </div>
 
       <div className="space-y-2">
         <label htmlFor="password" className="block font-montserrat text-sm font-semibold text-neutral-800 dark:text-neutral-200">Contraseña</label>
-        <input id="password" type="password" name="password" value={formData.password} onChange={handleChange} autoComplete="new-password" placeholder="Elegí una contraseña segura" required className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
+        <input id="password" type="password" name="password" value={formData.password} onChange={handleChange} autoComplete="new-password" placeholder="Elegí una contraseña segura" className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
       </div>
 
       <div className="space-y-2">
         <label htmlFor="confirmPassword" className="block font-montserrat text-sm font-semibold text-neutral-800 dark:text-neutral-200">Repetir contraseña</label>
-        <input id="confirmPassword" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} autoComplete="new-password" placeholder="Volvé a ingresar tu contraseña" required className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
+        <input id="confirmPassword" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} autoComplete="new-password" placeholder="Volvé a ingresar tu contraseña" className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white" />
       </div>
 
       <button type="submit" disabled={loading} className="w-full rounded-xl bg-primary px-4 py-3 font-montserrat text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50">

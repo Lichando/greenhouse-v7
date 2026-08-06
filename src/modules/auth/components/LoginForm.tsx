@@ -79,7 +79,6 @@ export function LoginForm() {
           onChange={handleChange}
           autoComplete="email"
           placeholder="nombre@ejemplo.com"
-          required
           className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white"
         />
       </div>
@@ -99,7 +98,6 @@ export function LoginForm() {
           onChange={handleChange}
           autoComplete="current-password"
           placeholder="Ingresá tu contraseña"
-          required
           className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white"
         />
       </div>

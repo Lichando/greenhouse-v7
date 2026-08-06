@@ -125,7 +125,6 @@ export function VerifyCodeForm() {
           onChange={(event) => setEmail(event.target.value)}
           autoComplete="email"
           placeholder="nombre@ejemplo.com"
-          required
           className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-sm text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white"
         />
       </div>
@@ -142,7 +141,6 @@ export function VerifyCodeForm() {
           onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
           autoComplete="one-time-code"
           placeholder="000000"
-          required
           className="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-3 font-montserrat text-center text-lg tracking-[0.35em] text-neutral-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-neutral-700 dark:bg-neutral-800/70 dark:text-white"
         />
         <p className="font-montserrat text-xs leading-5 text-neutral-500">Revisá tu bandeja de entrada y spam. El código es de un solo uso.</p>
