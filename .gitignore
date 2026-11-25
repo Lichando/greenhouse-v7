@@ -8,6 +8,9 @@ __v0_jsx-dev-runtime.ts
 
 # Environment variables
 .env*.local
+php-app/.env
+php-app/.env.local
+php-app/vendor/
 
 # Common ignores
 node_modules
